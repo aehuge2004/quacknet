@@ -10,7 +10,7 @@ export default function HomeCard() {
   return (
     <Grid container spacing={10}>
       <Grid size={8}>
-        <Video/>
+        <Video videoSrc="/videos/ImagineRIT_Vid_2025_NoCaption.mp4"/>
       </Grid>
       <Grid size={4}>
         <Typography component="div" variant="h5" style={{color: 'white', fontWeight: 'bolder', textAlign: 'left'}}>
@@ -40,8 +40,9 @@ export default function HomeCard() {
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac orci sed purus pellentesque cursus ut nec leo. Phasellus at risus quis ante auctor facilisis. Fusce iaculis leo eget dui finibus, volutpat tincidunt erat euismod. Donec accumsan eget ligula at interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
         </Typography>
-        <Button variant='text' href='https://www.rit.edu/coms/' target='_blank'  endIcon={<ArrowForwardIosIcon/>} sx={{ textTransform: 'none', color: '#99D6DE' }}>Learn more about COMS</Button>
+        <Button variant='text' href='https://www.rit.edu/computing/coms/' target='_blank'  endIcon={<ArrowForwardIosIcon/>} sx={{ textTransform: 'none', color: '#99D6DE' }}>Learn more about COMS</Button>
       </Grid>
     </Grid>
+    
   );
 }

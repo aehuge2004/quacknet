@@ -28,7 +28,6 @@ function App() {
             <Box sx={{width: '50%'}}></Box>
             <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>Link Account</Button>
             <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>Games</Button>
-            <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>About COMS</Button>
             <IconButton
                 onClick={handleClick}
                 size="small"

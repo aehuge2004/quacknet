@@ -21,7 +21,7 @@ export default function HomeCard() {
             component="div"
             sx={{ color: 'white', textAlign: 'left' }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac orci sed purus pellentesque cursus ut nec leo. Phasellus at risus quis ante auctor facilisis. Fusce iaculis leo eget dui finibus, volutpat tincidunt erat euismod. Donec accumsan eget ligula at interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            The QuackBox is a 3D-printed, duck-shaped gaming console powered by a Raspberry Pi. With a custom user interface and duck-themed versions of classic games, it delivers a truly quacktastic gaming experience!
           </Typography>
           <img src={TwoDucks} style={{marginTop: '12vh'}}></img>
       </Grid>
@@ -38,7 +38,7 @@ export default function HomeCard() {
             component="div"
             sx={{ color: 'white', textAlign: 'left' }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac orci sed purus pellentesque cursus ut nec leo. Phasellus at risus quis ante auctor facilisis. Fusce iaculis leo eget dui finibus, volutpat tincidunt erat euismod. Donec accumsan eget ligula at interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Our Mission is to build a supportive and all inclusive community that celebrates the talent of underrepresented students in Computing. We work to accomplish our mission by providing mentorship, mental health awareness, and leadership opportunities. Our goal is to create a positive impact on the underrepresented computing community by engaging with local underrepresented students and fostering STEM education.
         </Typography>
         <Button variant='text' href='https://www.rit.edu/computing/coms/' target='_blank'  endIcon={<ArrowForwardIosIcon/>} sx={{ textTransform: 'none', color: '#99D6DE' }}>Learn more about COMS</Button>
       </Grid>

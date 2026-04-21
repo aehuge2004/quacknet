@@ -44,3 +44,21 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## MUI
+npm install @mui/material @emotion/react @emotion/styled
+
+Typical use of MUI components:
+import Component from '@mui/material/Component';
+
+export default function ComponantUsage() {
+    return <Component variant="">Hello World</Component>
+}
+
+To ensure responsive web design, add this viewport meta tag
+<meta name="viewport" content="initial-scle=1, width=device-width"/>
+
+## Icons
+npm install @mui/icons-material
+Uses Material Icons found in https://fonts.googleapis.com/icon?family=Material_Icons

@@ -29,3 +29,18 @@ main {
   width: 100%;
   display: flex;
 }
+
+@keyframes slideTimer {
+  from {width: 100%;}
+  to {width: 0%}
+}
+
+.timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height:80px;
+  width: 100%;
+  background-color: rgba(6, 18, 19, 0.80);
+  animation: slideTimer 5000ms linear forwards;
+}

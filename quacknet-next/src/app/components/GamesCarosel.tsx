@@ -3,9 +3,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Imprint from '../images/imprint.svg';
-import PondInvadors from '../images/pond-invadors.svg';
-import QuackAttack from '../images/quack-attack.svg';
+import Image from 'next/image'
+
 
 
 function GamesCarousel() {
@@ -15,7 +14,7 @@ function GamesCarousel() {
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
             <Carousel.Item interval={5000} style={{width: '100%', height: '50vh'}}>
-              <img src={Imprint} className="d-block w-100" alt="First slide" />
+              <Image src="/images/imprint.svg" className="d-block w-100" alt="First slide" width={100} height={100} />
               <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '10px', borderRadius: '5px' }}>
                 <h3>Game Name</h3>
                 <p style={{ fontSize: '14px' }}>
@@ -24,7 +23,7 @@ function GamesCarousel() {
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={5000} style={{width: '100%', height: '50vh'}}>
-              <img src={PondInvadors} className="d-block w-100" alt="Second slide" />
+              <Image src="/images/pond-invadors.svg" className="d-block w-100" alt="Second slide" width={100} height={100} />
               <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '10px', borderRadius: '5px' }}>
                 <h3>Game Name</h3>
                 <p style={{ fontSize: '14px' }}>
@@ -33,7 +32,7 @@ function GamesCarousel() {
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={5000} style={{width: '100%', height: '50vh'}}>
-              <img src={QuackAttack} className="d-block w-100" alt="Third slide" />
+              <Image src="/images/quack-attack.svg" className="d-block w-100" alt="Third slide" width={100} height={100} />
               <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '10px', borderRadius: '5px' }}>
                 <h3>Game Name</h3>
                 <p style={{ fontSize: '14px' }}>
@@ -45,9 +44,9 @@ function GamesCarousel() {
         </Grid>
         <Grid size={3}>
           <Stack spacing={2}>
-            <img src={Imprint} style={{width: '100%', height: '15vh'}}></img>
-            <img src={PondInvadors} style={{width: '100%', height: '15vh'}}></img>
-            <img src={QuackAttack} style={{width: '100%', height: '15vh'}}></img>
+            <Image src="/images/imprint.svg" alt="" width={100} height={100} style={{width: '100%', height: '15vh'}}></Image>
+            <Image src="/images/pond-invadors.svg" alt="" width={100} height={100} style={{width: '100%', height: '15vh'}}></Image>
+            <Image src="/images/quack-attack.svg" alt="" width={100} height={100} style={{width: '100%', height: '15vh'}}></Image>
           </Stack>
         </Grid>
       </Grid>

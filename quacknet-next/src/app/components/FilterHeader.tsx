@@ -23,19 +23,26 @@ export default function ColorToggleButton() {
       onChange={handleChange}
       aria-label="Sorting options"
       sx={{
-        '& .Mui-selected': {
-            backgroundColor: 'rgba(153,214,222,0.5)',
-            color: '#FFF',
-            '&:hover': { backgroundColor: 'rgba(153,214,222,0.7)' },
-        },'& .MuiToggleButton-root': {
-            color: '#FFFFFF',
-            textTransform: 'none',
-            fontWeight: 'bold',
-            fontSize: '20px',
-            marginLeft: '20px',
-        }
-        }
-        }
+      '& .MuiToggleButton-root': {
+        color: '#FFFFFF',
+        textTransform: 'none',
+        fontWeight: 'bold',
+        fontSize: '20px',
+        marginLeft: '20px',
+        '&:hover': {
+          backgroundColor: 'rgba(153,214,222,0.3)',  // 👈 unselected hover
+          color: '#FFF',
+        },
+      },
+      '& .MuiToggleButton-root.Mui-selected': {
+        backgroundColor: 'rgba(153,214,222,0.5)',
+        color: '#FFF',
+        '&:hover': {
+          backgroundColor: 'rgba(153,214,222,0.7)',  // 👈 selected hover
+          color: '#FFF',
+        },
+      },
+    }}
     >
       <ToggleButton value="popular">Popular</ToggleButton>
       <ToggleButton value="rising">Rising</ToggleButton>

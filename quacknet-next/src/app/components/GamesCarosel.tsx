@@ -22,7 +22,7 @@ function GamesCarousel({games}: {games: Game[]}) {
           interval={5000}
           style={{width: '100%', height: '50vh', margin: '0 auto'}}
           >
-            {games.slice(0, 3).map((game) => {
+            {games.slice(0, 4).map((game) => {
               return (
                   <Carousel.Item style={{width: '100%', height: '50vh'}}>
                     <img src={game.cover_image} className="d-block w-100" alt="First slide" width={100} height={100} />
@@ -39,7 +39,7 @@ function GamesCarousel({games}: {games: Game[]}) {
         </Grid>
         <Grid size={3}>
           <Stack spacing={2}>
-            {games.slice(0, 3).map((game, index) => (
+            {games.slice(0, 4).map((game, index) => (
               <Box
                 key={game.id}
                 onClick={() => setActiveIndex(index)}

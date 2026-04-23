@@ -3,11 +3,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Image from 'next/image'
-import CarouselItem from './CarouselItem';
 import SideCarouselItem from './SideCarouselDisplay';
 import { Game } from '@/types/games';
-import { useEffect, useState } from 'react';
+import React from 'react';
 
 
 
@@ -18,17 +16,16 @@ function GamesCarousel({games}: {games: Game[]}) {
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
             {games.slice(0, 3).map((game) => {
-              // const src = `data:image/png;base64,${game.cover_image.toString()}`;
               return (
-                <Carousel.Item key={game.id} interval={2000} style={{width: '100%', height: '50vh'}}>
-                  <img src={game.cover_image} className="d-block w-100" alt="First slide" width={100} height={100} />
-                  <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px' }}>
-                    <h3>{game.title}</h3>
-                    <p style={{ fontSize: '14px' }}>
-                        {game.summary}
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
+                  <Carousel.Item interval={4000} style={{width: '100%', height: '50vh'}}>
+                    <img src={game.cover_image} className="d-block w-100" alt="First slide" width={100} height={100} />
+                    <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px' }}>
+                      <h3>{game.title}</h3>
+                      <p style={{ fontSize: '14px' }}>
+                          {game.summary}
+                      </p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
               )
             })}
           </Carousel>

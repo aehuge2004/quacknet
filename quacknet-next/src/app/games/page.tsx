@@ -62,11 +62,14 @@ function GamesPage() {
         <GamesCarousel games={games}/>
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
-        <Box sx={{height: '5vh'}}></Box>
-        <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-between", alignItems: "center", width: '100%', flexWrap: 'wrap', marginTop: '5vh'}}>
+        
+        <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "flex-start", alignItems: "center", width: '100%', flexWrap: 'wrap', marginTop: '5vh'}}>
+          <Box sx={{width: '1vw'}}></Box>
           <SearchBar />
+          <Box sx={{width: '15vw'}}></Box>
           <FilterHeader />
         </Stack>
+        <Box sx={{height: '5vh'}}></Box>
         {/* MAKE SPACE FOR FILTER IN A SECODARY STACK*/}
         <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
             {games.map((game) => (

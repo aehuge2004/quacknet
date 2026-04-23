@@ -3,7 +3,7 @@ import { useRouter, useParams } from 'next/navigation'
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Box } from "@mui/material";
-import Duck from '../assets/duck.png';
+
 
 
 
@@ -16,7 +16,7 @@ export default function Home() {
         <Link href="/" style={{ textDecoration: 'none' }}>
           <Box sx={{ position: 'fixed', x: 0, y: 0, display: 'flex', alignItems: 'left', textAlign: 'left', width: '99vw', backgroundColor: '#99D6DE', filter: 'drop-shadow(0px 2px 2px #000000)', zIndex: 1000 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', padding: '1vw' }}>
-              <Image src={Duck} style={{ width: '50px', height: '50px'}} alt="duck logo"></Image>
+              <Image src="/duck.png" style={{ width: '50px', height: '50px'}} alt="duck logo"></Image>
               <Button variant="text" disableRipple sx={{ fontSize: 36, color: 'black', fontWeight: 'bolder', padding: '6px 12px', lineHeight: 1.5, textTransform: 'none'}}>QuackNet</Button>
             </Box>
             <Box sx={{width: '60%'}}></Box>

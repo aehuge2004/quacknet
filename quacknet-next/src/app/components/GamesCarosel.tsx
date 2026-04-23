@@ -19,7 +19,7 @@ function GamesCarousel({games}: {games: Game[]}) {
           <Carousel 
           activeIndex={activeIndex}
           onSelect={(index) => setActiveIndex(index)}
-          interval={5000}
+          interval={4000}
           style={{width: '100%', height: '50vh', margin: '0 auto'}}
           >
             {games.slice(0, 4).map((game) => {

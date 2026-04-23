@@ -10,22 +10,6 @@ function GamesPage() {
         <GamesCarousel/>
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
-
-        {/*
-          const [mapSquare, setMapSquare] = useState(InitialImg);
-          return (
-            <div><img
-            src={mapSquare}
-            onMouseEnter={() => {
-              setMapSquare(HoverImg);
-            }}
-          
-            onMouseLeave={() => {
-              setMapSquare(InitialImg);
-            }}
-          /></div>
-        );
-        */}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { Button, Box } from "@mui/material";
 export default function Home() {
   const router = useRouter()
   router.push('/games')
+  router.push('/')
   return (
     <div className="App">
       <header className="App-header">

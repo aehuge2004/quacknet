@@ -1,3 +1,4 @@
+'use client';
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Ducks from '../images/ducks-left.svg'

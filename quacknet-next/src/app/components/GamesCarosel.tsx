@@ -1,3 +1,4 @@
+'use client';
 import Carousel from 'react-bootstrap/Carousel';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';

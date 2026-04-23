@@ -1,12 +1,15 @@
+'use client';
+import { useRouter, useParams } from 'next/navigation'
 import Image from "next/image";
 import Link from "next/link";
-import { Routes, Route } from "react-router-dom";
 import { Button, Box } from "@mui/material";
 import Duck from '../assets/duck.png';
-import Games from "./games/page";
+
 
 
 export default function Home() {
+  const router = useRouter()
+  router.push('/games')
   return (
     <div className="App">
       <header className="App-header">
@@ -28,10 +31,6 @@ export default function Home() {
             </Link>
           </Box>
         </Link>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/games" element={<Games />} />
-        </Routes>
       </header> 
     </div>
   );

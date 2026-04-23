@@ -1,4 +1,4 @@
-import React from 'react';
+'use client';
 import Box from '@mui/material/Box'
 import GamesCarousel from '../components/GamesCarosel';
 import GamesHeader from '../components/GamesHeader';

@@ -1,3 +1,4 @@
+'use client';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Duckies from '../images/Duckies-on-Bench.svg'

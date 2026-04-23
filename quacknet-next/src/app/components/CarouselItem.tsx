@@ -1,11 +1,15 @@
 'use client';
 import Carousel from 'react-bootstrap/Carousel';
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Image from 'next/image'
 
 function CarouselItem({ game }: { game: Game }) {
+    const src = `data:image/png;base64,${game.cover_image.toString('base64')}`;
     return (
         <Carousel.Item interval={5000} style={{width: '100%', height: '50vh'}}>
-            <Image src={game.cover_image} className="d-block w-100" alt="First slide" width={100} height={100} />
+            <Image src={src} className="d-block w-100" alt="First slide" width={100} height={100} />
             <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px' }}>
                 <h3>{game.title}</h3>
                 <p style={{ fontSize: '14px' }}>

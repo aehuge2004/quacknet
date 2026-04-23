@@ -18,14 +18,14 @@ function GamesCarousel({games}: {games: Game[]}) {
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
             {games.map((game) => (
-              <CarouselItem key={game.id} game={game} />
+              <CarouselItem key={game.game_id} game={game} />
             ))}
           </Carousel>
         </Grid>
         <Grid size={3}>
           <Stack spacing={2}>
             {games.map((game) => (
-              <SideCarouselItem key={game.id} imageSrc={game.cover_image} />
+              <SideCarouselItem key={game.game_id} imageSrc={game.cover_image} />
             ))}
           </Stack>
         </Grid>

@@ -7,8 +7,22 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import GameLibraryCard from '../components/GameLibraryCard';
 import { Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Game } from '../types/game';
 
 function GamesPage() {
+    const [games, setGames] = useState<Game[]>([]);
+  
+    useEffect(() => {
+      const fetchGames = async () => {
+        const response = await fetch('/api/games');
+        const data = await response.json();
+        setGames(data);
+      };
+  
+      fetchGames();
+    }, []);
+
   return (
     <main>
       <header className="App-header">
@@ -41,9 +55,9 @@ function GamesPage() {
         <GamesHeader/> 
         <Box sx={{height: '5vh'}}></Box>
         <Stack direction="row" spacing={2} sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%'}}>
-              <GameLibraryCard/>
-              <GameLibraryCard/>
-              <GameLibraryCard/>
+            {games.map((game) => (
+              <GameLibraryCard key={game.id} game={game} />
+            ))}
         </Stack>
       </div>
     </main>

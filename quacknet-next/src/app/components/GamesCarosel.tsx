@@ -6,9 +6,9 @@ import Stack from '@mui/material/Stack';
 import Image from 'next/image'
 import CarouselItem from './CarouselItem';
 import SideCarouselItem from './SideCarouselDisplay';
-
+import { Game } from '../../types/game';
 import { useEffect, useState } from 'react';
-import { Game } from 'quacknet-next/types/games.ts';
+
 
 
 function GamesCarousel() {

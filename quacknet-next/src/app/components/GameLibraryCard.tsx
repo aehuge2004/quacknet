@@ -17,7 +17,7 @@ export default function GameLibraryCard({ game }: { game: any }) {
       }}
     >
       {/* Image + overlay wrapper */}
-      <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
+      <Box sx={{ position: 'relative', height: 300, overflow: 'hidden' }}>
 
         {/* The image */}
         <CardMedia

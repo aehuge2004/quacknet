@@ -8,7 +8,6 @@ import Link from 'next/link';
 import GameLibraryCard from '../components/GameLibraryCard';
 import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
 import { Game } from '@/types/games';
 import FilterHeader from '../components/FilterHeader';
 import SearchBar from '../components/SearchBar';

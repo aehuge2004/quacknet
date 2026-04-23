@@ -3,7 +3,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import SideCarouselItem from './SideCarouselDisplay';
 import { Game } from '@/types/games';
 import React from 'react';
 

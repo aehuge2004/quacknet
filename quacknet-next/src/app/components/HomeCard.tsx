@@ -1,11 +1,10 @@
 'use client';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Duckies from '../images/Duckies-on-Bench.svg'
 import Grid from '@mui/material/Grid';
 import Video from './Video';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import TwoDucks from '../images/two-ducks.svg'
+
 
 export default function HomeCard() {
   return (
@@ -24,10 +23,10 @@ export default function HomeCard() {
           >
             The QuackBox is a 3D-printed, duck-shaped gaming console powered by a Raspberry Pi. With a custom user interface and duck-themed versions of classic games, it delivers a truly quacktastic gaming experience!
           </Typography>
-          <img src={TwoDucks} style={{marginTop: '12vh'}}></img>
+          <img src="/images/two-ducks.svg" style={{marginTop: '12vh'}}></img>
       </Grid>
       <Grid size={5}>
-        <img src={Duckies}/>
+        <img src="/images/Duckies-on-Bench.svg"/>
       </Grid>
       <Grid size={7} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
         

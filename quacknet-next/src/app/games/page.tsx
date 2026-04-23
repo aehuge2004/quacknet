@@ -9,7 +9,7 @@ import GameLibraryCard from '../components/GameLibraryCard';
 import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { Game } from '../../../types/games';
+import { Game } from '@/types/games';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
@@ -68,8 +68,6 @@ function GamesPage() {
             {games.map((game) => (
               <Typography>
                 {game.title}
-                {game.summary}
-                {game.author}
               </Typography>
             ))}
         </Stack>

@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Image from 'next/image'
 import CarouselItem from './CarouselItem';
 import SideCarouselItem from './SideCarouselDisplay';
-import { Game } from '../../../types/games';
+import { Game } from '@/types/games';
 import { useEffect, useState } from 'react';
 
 
@@ -16,7 +16,7 @@ function GamesCarousel() {
 
   useEffect(() => {
     const fetchGames = async () => {
-      const response = await fetch('@/src/api/games');
+      const response = await fetch('@/api/games');
       const data = await response.json();
       setGames(data);
     };

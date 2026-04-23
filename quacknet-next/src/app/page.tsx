@@ -33,4 +33,6 @@ export default function Home() {
           <Route path="/games" element={<Games />} />
         </Routes>
       </header> 
-    </div
+    </div>
+  );
+}

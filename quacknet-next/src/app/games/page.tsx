@@ -8,20 +8,27 @@ import Link from 'next/link';
 import GameLibraryCard from '../components/GameLibraryCard';
 import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Game } from '../types/game';
+import Typography from '@mui/material/Typography';
+import { Game } from '../../../types/games';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
   
     useEffect(() => {
       const fetchGames = async () => {
+      try {
         const response = await fetch('/api/games');
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
+        console.log('Fetched games:', data); // confirm data is coming in
         setGames(data);
-      };
-  
-      fetchGames();
-    }, []);
+      } catch (err) {
+        console.error('Failed to fetch games:', err);
+      }
+  };
+
+  fetchGames();
+}, []);
 
   return (
     <main>
@@ -50,13 +57,20 @@ function GamesPage() {
       </header>
       <div>
         <Box sx={{height: '20vh'}}></Box>
-        <GamesCarousel/>
+        {/* <GamesCarousel/> */}
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
         <Box sx={{height: '5vh'}}></Box>
         <Stack direction="row" spacing={2} sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%'}}>
-            {games.map((game) => (
+            {/* {games.map((game) => (
               <GameLibraryCard key={game.id} game={game} />
+            ))} */}
+            {games.map((game) => (
+              <Typography>
+                {game.title}
+                {game.summary}
+                {game.author}
+              </Typography>
             ))}
         </Stack>
       </div>

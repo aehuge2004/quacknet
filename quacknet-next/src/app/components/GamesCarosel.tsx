@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Image from 'next/image'
 import CarouselItem from './CarouselItem';
 import SideCarouselItem from './SideCarouselDisplay';
-import { Game } from '../../types/game';
+import { Game } from '../../../types/games';
 import { useEffect, useState } from 'react';
 
 
@@ -16,7 +16,7 @@ function GamesCarousel() {
 
   useEffect(() => {
     const fetchGames = async () => {
-      const response = await fetch('/api/games');
+      const response = await fetch('@/src/api/games');
       const data = await response.json();
       setGames(data);
     };
@@ -30,14 +30,14 @@ function GamesCarousel() {
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
             {games.map((game) => (
-              <CarouselItem key={game.id} imageSrc={game.image} title={game.name} description={game.description} />
+              <CarouselItem key={game.id} imageSrc={game.cover_image} title={game.title} description={game.summary} />
             ))}
           </Carousel>
         </Grid>
         <Grid size={3}>
           <Stack spacing={2}>
             {games.map((game) => (
-              <SideCarouselItem key={game.id} imageSrc={game.image} />
+              <SideCarouselItem key={game.id} imageSrc={game.cover_image} />
             ))}
           </Stack>
         </Grid>

@@ -23,7 +23,7 @@ export default function Menu() {
             <Link href="/games" style={{ textDecoration: 'none', alignContent: 'center' }}>
                 <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>Games</Button>
             </Link>
-            <Link href="/profile" style={{ textDecoration: 'none', alignContent: 'center' }}>
+            <Link href="/sign-in" style={{ textDecoration: 'none', alignContent: 'center' }}>
                 <Button variant="contained" sx={{color: 'white', backgroundColor: '#1F5960', textTransform: 'none', fontWeight: 'bold', marginLeft: '1vw'}}>Profile</Button>
             </Link>
             </Box>

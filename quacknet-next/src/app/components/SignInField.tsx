@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 
 export default function SignInField() {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'white' }}>
         <h1>Sign In</h1>
         <TextField label="Username" variant="outlined" sx={{ m: 1, width: '300px' }} />
         <TextField label="Password" variant="outlined" sx={{ m: 1, width: '300px' }} />

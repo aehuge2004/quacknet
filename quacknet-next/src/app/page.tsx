@@ -1,5 +1,5 @@
 'use client';
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Box } from "@mui/material";

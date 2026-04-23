@@ -5,6 +5,8 @@ import GamesHeader from '../components/GamesHeader';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import GameLibraryCard from '../components/GameLibraryCard';
+import { Stack } from '@mui/material';
 
 function GamesPage() {
   return (
@@ -18,9 +20,12 @@ function GamesPage() {
             </Link>
           </Box>            
           <Box sx={{width: '60%'}}></Box>
+          {/* UNCOMMENT THIS LINK WHEN LINK ACCOUNT BECOMES AVAILABLE*/}
+            
             {/* <Link href="/link-account" style={{ textDecoration: 'none', alignContent: 'center' }}>
               <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>Link Account</Button>
             </Link> */}
+            
             <Link href="/games" style={{ textDecoration: 'none', alignContent: 'center' }}>
               <Button variant="text" sx={{color: 'black', textTransform: 'none', fontWeight: 'bold'}}>Games</Button>
             </Link>
@@ -34,6 +39,12 @@ function GamesPage() {
         <GamesCarousel/>
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
+        <Box sx={{height: '5vh'}}></Box>
+        <Stack direction="row" spacing={2} sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%'}}>
+              <GameLibraryCard/>
+              <GameLibraryCard/>
+              <GameLibraryCard/>
+        </Stack>
       </div>
     </main>
 

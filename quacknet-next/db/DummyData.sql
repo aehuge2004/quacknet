@@ -31,12 +31,12 @@ values
 -- Games
 insert into Game (title, author, summary, release_date, cover_image, multiplayer_id)
 values
-('Space Blaster', 'NovaSoft', 'Arcade space shooter', now() - interval '2 years', decode('DEADBEEF', 'hex'), 2),
-('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', now() - interval '1 year', decode('BEEFDEAD', 'hex'), 2),
-('Speed Racer', 'FastGames', 'High-speed racing fun', now() - interval '6 months', decode('CAFEBABE', 'hex'), 1),
-('Space Blaster 2', 'NovaSoft', 'Arcade space shooter but better', now() - interval '2 weeks', decode('DEADBEEF', 'hex'), 2),
-('Dungeon Crawler 2', 'DeepDev', 'Explore more dark dungeons', now() - interval '1 week', decode('BEEFDEAD', 'hex'), 2),
-('Speed Racer 2', 'FastGames', 'High-speed racing fun AGAIN', now() - interval '1 day', decode('CAFEBABE', 'hex'), 1);
+('Space Blaster', 'NovaSoft', 'Arcade space shooter', date('now', '-2 years'), 'images/long-way-duck-gameplay.png', 2),
+('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', date('now', '-1 year'), 'images/hitbox.png', 2),
+('Speed Racer', 'FastGames', 'High-speed racing fun', date('now', '-6 months'), 'images/quack-attack.png', 1),
+('Space Blaster 2', 'NovaSoft', 'Arcade space shooter but better', date('now', '-2 weeks'), 'images/long-way-duck.png', 2),
+('Dungeon Crawler 2', 'DeepDev', 'Explore more dark dungeons', date('now', '-1 week'), 'images/pond-invadors.png', 2),
+('Speed Racer 2', 'FastGames', 'High-speed racing fun AGAIN', date('now', '-1 day'), 'images/quack-attack.png', 1);
 
 insert into Saves (filename, user_id, game_id, data, save_timestamp)
 values

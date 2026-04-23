@@ -10,6 +10,8 @@ import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { Game } from '@/types/games';
+import FilterHeader from '../components/FilterHeader';
+import SearchBar from '../components/SearchBar';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
@@ -61,6 +63,10 @@ function GamesPage() {
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
         <Box sx={{height: '5vh'}}></Box>
+        <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-between", alignItems: "center", width: '100%', flexWrap: 'wrap', marginTop: '5vh'}}>
+          <SearchBar />
+          <FilterHeader />
+        </Stack>
         {/* MAKE SPACE FOR FILTER IN A SECODARY STACK*/}
         <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
             {games.map((game) => (
@@ -68,6 +74,7 @@ function GamesPage() {
             ))}
         </Stack>
       </div>
+
     </main>
 
   );

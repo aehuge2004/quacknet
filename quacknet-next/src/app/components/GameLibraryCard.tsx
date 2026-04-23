@@ -3,6 +3,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Game } from '@/types/games';
 
 
 
@@ -12,18 +13,18 @@ export default function GameLibraryCard({ game }: { game: Game }) {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader>
         <Typography variant="h5" component="div">
-          {game.name}
+          {game.title}
         </Typography>
       </CardHeader>
       <CardMedia
         component="img"
         height="194"
-        image={game.image}
-        alt={game.name}
+        image={game.cover_image}
+        alt={game.title}
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {game.description}
+          {game.summary}
         </Typography>
       </CardContent>
     </Card>

@@ -11,26 +11,14 @@ import { useEffect, useState } from 'react';
 
 
 
-function GamesCarousel() {
-  const [games, setGames] = useState<Game[]>([]);
-
-  useEffect(() => {
-    const fetchGames = async () => {
-      const response = await fetch('@/api/games');
-      const data = await response.json();
-      setGames(data);
-    };
-
-    fetchGames();
-  }, []);
-
+function GamesCarousel({games}: {games: Game[]}) {
   return (
     <Box sx={{ width: '90%', padding: '30px', alignSelf: 'center' }}>
       <Grid container spacing={2}>
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
             {games.map((game) => (
-              <CarouselItem key={game.id} imageSrc={game.cover_image} title={game.title} description={game.summary} />
+              <CarouselItem key={game.id} game={game} />
             ))}
           </Carousel>
         </Grid>

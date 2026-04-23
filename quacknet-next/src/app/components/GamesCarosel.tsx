@@ -17,15 +17,26 @@ function GamesCarousel({games}: {games: Game[]}) {
       <Grid container spacing={2}>
         <Grid size={9}>
           <Carousel style={{width: '100%', height: '50vh', margin: '0 auto'}}>
-            {games.map((game) => (
-              <CarouselItem key={game.game_id} game={game} />
-            ))}
+            {games.slice(0, 3).map((game) => {
+              // const src = `data:image/png;base64,${game.cover_image.toString()}`;
+              return (
+                <Carousel.Item key={game.id} interval={2000} style={{width: '100%', height: '50vh'}}>
+                  <img src={game.cover_image} className="d-block w-100" alt="First slide" width={100} height={100} />
+                  <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px' }}>
+                    <h3>{game.title}</h3>
+                    <p style={{ fontSize: '14px' }}>
+                        {game.summary}
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              )
+            })}
           </Carousel>
         </Grid>
         <Grid size={3}>
           <Stack spacing={2}>
-            {games.map((game) => (
-              <SideCarouselItem key={game.game_id} imageSrc={game.cover_image} />
+            {games.slice(0, 3).map((game) => (
+              <SideCarouselItem key={game.id} game={game} />
             ))}
           </Stack>
         </Grid>

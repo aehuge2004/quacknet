@@ -61,7 +61,8 @@ function GamesPage() {
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
         <Box sx={{height: '5vh'}}></Box>
-        <Stack direction="row" spacing={2} sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%'}}>
+        {/* MAKE SPACE FOR FILTER IN A SECODARY STACK*/}
+        <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
             {games.map((game) => (
               <GameLibraryCard key={game.id} game={game} />
             ))}

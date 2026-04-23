@@ -10,7 +10,7 @@ import { Game } from '@/types/games';
 
 export default function GameLibraryCard({ game }: { game: Game }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: '345px', height: '400px' }}>
       <CardHeader>
         <Typography variant="h5" component="div">
           {game.title}

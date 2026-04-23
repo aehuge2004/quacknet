@@ -1,8 +1,7 @@
 export type Users = {
-  id: number;
-  name: string;
+  user_id: number;
+  username: string;
   about_me: string;
-  summary: string;
   crumbs: number;
   profile_pic: string;  // now a path like "/images/space-blaster.jpg"\
   time_played: Date;

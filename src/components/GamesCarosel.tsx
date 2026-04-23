@@ -34,7 +34,7 @@ function GamesCarousel() {
             <Carousel.Item interval={5000} style={{width: '100%', height: '50vh'}}>
               <img src={QuackAttack} className="d-block w-100" alt="Third slide" />
               <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '10px', borderRadius: '5px' }}>
-                <h3>Third slide label</h3>
+                <h3>Game Name</h3>
                 <p style={{ fontSize: '14px' }}>
                   Game Description. Praesent commodo cursus magna, vel scelerisque nisl consectetur.
                 </p>

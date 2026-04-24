@@ -11,25 +11,41 @@ import SearchBar from '../components/SearchBar';
 import FilterOptions from '../components/FilterOptions';
 import Grid from '@mui/material/Grid';
 import Menu from '../components/Menu';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchGames = async () => {
-      try {
-        const response = await fetch('/api/games');
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        const data = await response.json();
-        console.log('Fetched games:', data); // confirm data is coming in
-        setGames(data);
-      } catch (err) {
-        console.error('Failed to fetch games:', err);
-      }
-  };
+        setLoading(true);
+        try {
+          const response = await fetch('/api/games');
+          if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+          const data = await response.json();
+          console.log('Fetched games:', data); // confirm data is coming in
+          setGames(data);
+        } catch (err) {
+          console.error('Failed to fetch games:', err);
+        } finally {
+          setLoading(false);
+        }
+    };
 
-  fetchGames();
-}, []);
+    fetchGames();
+  }, []);
+
+  if (loading) {
+    return (
+      <main>
+        <Menu />
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </Box>
+      </main>
+    );
+  }
 
   return (
     <main>

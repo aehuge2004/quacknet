@@ -2,9 +2,6 @@
 import Box from '@mui/material/Box'
 import GamesCarousel from '../components/GamesCarosel';
 import GamesHeader from '../components/GamesHeader';
-import Image from 'next/image';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
 import GameLibraryCard from '../components/GameLibraryCard';
 import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -58,7 +55,7 @@ function GamesPage() {
           <Grid size={9}>
             <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
               {games.map((game) => (
-                <GameLibraryCard key={game.id} game={game} />
+                <GameLibraryCard key={game.game_id} game={game} />
               ))}
             </Stack>
           </Grid>

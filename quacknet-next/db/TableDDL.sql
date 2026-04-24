@@ -29,8 +29,8 @@ create table Game(
     author varchar(150) not null,
     summary varchar(500) not null,
     release_date timestamptz not null,
-    cover_image bytea not null,
-    multiplayer_id boolean not null default false
+    cover_image varchar(500) not null,
+    multiplayer_id int not null references Multiplayer(multiplayer_id)
 );
 
 create table Multiplayer(

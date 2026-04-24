@@ -1,9 +1,9 @@
-import db from '@/lib/db'
+import sql from '@/lib/db'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const games = db.prepare('SELECT * FROM Game').all();
+    const games = await sql`SELECT * FROM "game"`;
     console.log('Games from DB:', games);
     return NextResponse.json(games);
   } catch (err) {

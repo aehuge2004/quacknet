@@ -1,35 +1,3 @@
-
--- Users
-insert into Users (username, about_me, crumbs)
-values
-('alice', 'I love indie games', 120),
-('bob', 'FPS enthusiast', 45),
-('charlie', 'Casual gamer', 10),
-
-DummyData.sql
-3 KB
-Forwarded
-create table Users(
-    user_id serial primary key,
-    username varchar(150) unique not null,
-    about_me varchar(500),
-    profile_pic bytea,
-    crumbs int not null default 0
-
-TableDDL.sql
-3 KB
-riceandbeans — 8:10 PM
-DATABASE_URL="postgresql://admin:password@localhost:5432/postgres"
-﻿
-Sadistic Biped
-sadisticbiped
- 
- 
- 
-somethin' like a fever dream
-Haven't slept in weeks I think I'm seeing things
-Like our shadows dancing us out of our clothes
-I'll be damned if you love me, damned if you don't
 -- Users
 insert into Users (username, about_me, crumbs)
 values
@@ -63,8 +31,8 @@ values
 -- Games
 insert into Game (title, author, summary, release_date, cover_image, multiplayer_id)
 values
-('Space Blaster', 'NovaSoft', 'Arcade space shooter', now() - interval '2 years', decode('DEADBEEF', 'hex'), 2),
-('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', now() - interval '1 year', decode('BEEFDEAD', 'hex'), 2),
+('Space Blaster', 'NovaSoft', 'Arcade space shooter', now() - interval '2 years', 'images/long-way-duck-gameplay.png', 2),
+('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', now() - interval '1 year', 'images/hitbox.png', 2),
 ('Speed Racer', 'FastGames', 'High-speed racing fun', now() - interval '6 months', decode('CAFEBABE', 'hex'), 1),
 ('Space Blaster 2', 'NovaSoft', 'Arcade space shooter but better', now() - interval '2 weeks', decode('DEADBEEF', 'hex'), 2),
 ('Dungeon Crawler 2', 'DeepDev', 'Explore more dark dungeons', now() - interval '1 week', decode('BEEFDEAD', 'hex'), 2),

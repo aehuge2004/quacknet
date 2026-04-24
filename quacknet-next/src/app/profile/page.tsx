@@ -8,7 +8,7 @@ import Menu from "../components/Menu";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid'
 import UserProfileInformation from '../components/UserProfileInformation'
-
+import IdLinkProfile from '../components/IdLinkProfile'
 
 export default function Home() {
   const router = useRouter()
@@ -31,7 +31,7 @@ export default function Home() {
                     <UserProfileInformation/>
                 </Grid>
                 <Grid size={3}>
-                    {/* ID info */}
+                    <IdLinkProfile />
                 </Grid>
                 <Grid size={2}>
                     {/* danger zone */}

@@ -24,7 +24,7 @@ function GamesPage() {
           if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
           const data = await response.json();
           console.log('Fetched games:', data); // confirm data is coming in
-
+          await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds
           setGames(data);
         } catch (err) {
           console.error('Failed to fetch games:', err);

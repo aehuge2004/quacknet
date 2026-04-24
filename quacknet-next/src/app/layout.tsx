@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   description: "The Quackbox games, all online.",
 };
 
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={poppins.variable}>

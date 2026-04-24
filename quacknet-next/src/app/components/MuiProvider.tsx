@@ -1,3 +1,4 @@
+'use client'
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 
 const theme = createTheme({

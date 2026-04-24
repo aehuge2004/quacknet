@@ -1,82 +1,139 @@
+riceandbeans
+riceandbeanss
+Invisible
+
+Sadistic Biped
+ started a call that lasted 2 hours. — 3/14/2026 3:13 PM
+riceandbeans
+ started a call that lasted an hour. — 3/16/2026 9:09 PM
+riceandbeans
+ started a call that lasted an hour. — 3/21/2026 2:45 PM
+riceandbeans — 3/25/2026 7:20 PM
+call me when you’re ready
+Sadistic Biped
+ started a call that lasted an hour. — 3/25/2026 7:22 PM
+Sadistic Biped
+ started a call that lasted an hour. — 4/1/2026 7:28 PM
+Sadistic Biped — 4/21/2026 6:51 PM
+https://docs.google.com/document/d/1QxUHmM9vjyK_nN-B94qkc3nQuLT_aGKsXzqkK3X2nQQ/edit?usp=sharing
+Sadistic Biped — Yesterday at 8:37 PM
+Forwarded
+--popularity: all games, sorted by time played
+select Game.game_id, Game.title, Game.author, Game.release_date, Game.summary,
+       Game.cover_image, Game.multiplayer_id, sum(Plays.time_end - Plays.time_begin) as play_time
+        from Plays left join Game on (Game.game_id = Plays.game_id) group by game.game_id order by play_time desc;
+
+--rising: all games, sorted by large increase in play time within the last week
+
+WebSearchDML.sql
+3 KB
+Forwarded
 -- Users
-INSERT INTO Users (username, about_me, crumbs)
-VALUES
+insert into Users (username, about_me, crumbs)
+values
+('alice', 'I love indie games', 120),
+('bob', 'FPS enthusiast', 45),
+('charlie', 'Casual gamer', 10),
+
+DummyData.sql
+3 KB
+Forwarded
+create table Users(
+    user_id serial primary key,
+    username varchar(150) unique not null,
+    about_me varchar(500),
+    profile_pic bytea,
+    crumbs int not null default 0
+
+TableDDL.sql
+3 KB
+riceandbeans — 8:10 PM
+DATABASE_URL="postgresql://admin:password@localhost:5432/postgres"
+﻿
+Sadistic Biped
+sadisticbiped
+ 
+ 
+ 
+somethin' like a fever dream
+Haven't slept in weeks I think I'm seeing things
+Like our shadows dancing us out of our clothes
+I'll be damned if you love me, damned if you don't
+-- Users
+insert into Users (username, about_me, crumbs)
+values
 ('alice', 'I love indie games', 120),
 ('bob', 'FPS enthusiast', 45),
 ('charlie', 'Casual gamer', 10),
 ('diana', 'Speedrunner', 300);
 
 -- Authentication_Manager
-INSERT INTO Authentication_Manager (user_id)
-VALUES (1), (2), (3), (4);
+insert into Authentication_Manager (user_id)
+values (1), (2), (3), (4);
 
 -- Local_Login (users 1 & 2)
-INSERT INTO Local_Login (user_id, salthash)
-VALUES
-(1, replace(hex(zeroblob(49)), '00', 'aa')),
-(2, replace(hex(zeroblob(49)), '00', 'bb'));
+insert into Local_Login (user_id, salthash)
+values
+(1, repeat('a', 98)),
+(2, repeat('b', 98));
 
 -- RIT_Login (users 3 & 4)
-INSERT INTO RIT_Login (user_id, rit_uid)
-VALUES
-(3, replace(hex(zeroblob(16)), '00', 'cc')),
-(4, replace(hex(zeroblob(16)), '00', 'dd'));
+insert into RIT_Login (user_id, rit_uid)
+values
+(3, repeat('c', 32)),
+(4, repeat('d', 32));
 
 -- Multiplayer configs
-INSERT INTO Multiplayer (local_min, local_max, online_multiplayer)
-VALUES
-(1, 4, 1),
-(1, 2, 0);
+insert into Multiplayer (local_min, local_max, online_multiplayer)
+values
+(1, 4, true),
+(1, 2, false);
 
 -- Games
-INSERT INTO Game (title, author, summary, release_date, cover_image, multiplayer_id)
-VALUES
-('Space Blaster', 'NovaSoft', 'Arcade space shooter', date('now', '-2 years'), 'images/long-way-duck-gameplay.png', 2),
-('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', date('now', '-1 year'), 'images/hitbox.png', 2),
-('Speed Racer', 'FastGames', 'High-speed racing fun', date('now', '-6 months'), 'images/quack-attack.png', 1),
-('Space Blaster 2', 'NovaSoft', 'Arcade space shooter but better', date('now', '-14 days'), 'images/long-way-duck.png', 2),
-('Dungeon Crawler 2', 'DeepDev', 'Explore more dark dungeons', date('now', '-7 days'), 'images/pond-invadors.png', 2),
-('Speed Racer 2', 'FastGames', 'High-speed racing fun AGAIN', date('now', '-1 day'), 'images/quack-attack.png', 1);
+insert into Game (title, author, summary, release_date, cover_image, multiplayer_id)
+values
+('Space Blaster', 'NovaSoft', 'Arcade space shooter', now() - interval '2 years', decode('DEADBEEF', 'hex'), 2),
+('Dungeon Crawler', 'DeepDev', 'Explore dark dungeons', now() - interval '1 year', decode('BEEFDEAD', 'hex'), 2),
+('Speed Racer', 'FastGames', 'High-speed racing fun', now() - interval '6 months', decode('CAFEBABE', 'hex'), 1),
+('Space Blaster 2', 'NovaSoft', 'Arcade space shooter but better', now() - interval '2 weeks', decode('DEADBEEF', 'hex'), 2),
+('Dungeon Crawler 2', 'DeepDev', 'Explore more dark dungeons', now() - interval '1 week', decode('BEEFDEAD', 'hex'), 2),
+('Speed Racer 2', 'FastGames', 'High-speed racing fun AGAIN', now() - interval '1 day', decode('CAFEBABE', 'hex'), 1);
 
--- Saves
-INSERT INTO Saves (filename, user_id, game_id, data, save_timestamp)
-VALUES
-('save1', 1, 1, X'AA', datetime('now')),
-('save2', 2, 1, X'BB', datetime('now')),
-('save1', 3, 2, X'CC', datetime('now'));
+insert into Saves (filename, user_id, game_id, data, save_timestamp)
+values
+('save1', 1, 1, decode('AA', 'hex'), now()),
+('save2', 2, 1, decode('BB', 'hex'), now()),
+('save1', 3, 2, decode('CC', 'hex'), now());
 
--- Plays
-INSERT INTO Plays (user_id, game_id, time_begin, time_end)
-VALUES
-(1, 1, datetime('now', '-2 hours'), datetime('now', '-1 hour')),
-(2, 1, datetime('now', '-3 hours'), datetime('now', '-2 hours')),
-(3, 2, datetime('now', '-1 hour'), datetime('now'));
+insert into Plays (user_id, game_id, time_begin, time_end)
+values
+(1, 1, now() - interval '2 hours', now() - interval '1 hour'),
+(2, 1, now() - interval '3 hours', now() - interval '2 hours'),
+(3, 2, now() - interval '1 hour', now());
 
--- Favorites
-INSERT INTO Favorites (user_id, game_id, favorite_time)
-VALUES
-(1, 1, datetime('now')),
-(2, 1, datetime('now')),
-(4, 3, datetime('now'));
+insert into Favorites (user_id, game_id, favorite_time)
+values
+(1, 1, now()),
+(2, 1, now()),
+(4, 3, now());
 
--- Reviews
-INSERT INTO Reviews (user_id, game_id, review_time, is_liked)
-VALUES
-(1, 1, datetime('now'), 1),
-(2, 1, datetime('now'), 0),
-(3, 2, datetime('now'), 1);
+insert into Reviews (user_id, game_id, review_time, is_liked)
+values
+(1, 1, now(), true),
+(2, 1, now(), false),
+(3, 2, now(), true);
 
 -- Genres
-INSERT INTO Genre (genre_name)
-VALUES
+insert into Genre (genre_name)
+values
 ('Action'),
 ('RPG'),
 ('Racing');
 
 -- Belongs_To
-INSERT INTO Belongs_To (game_id, genre_id)
-VALUES
+insert into Belongs_To (game_id, genre_id)
+values
 (1, 1),
 (2, 2),
 (3, 3),
-(1, 3);
+(1, 3); -- multi-genre example

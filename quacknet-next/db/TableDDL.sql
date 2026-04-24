@@ -1,92 +1,92 @@
-CREATE TABLE Users(
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    about_me TEXT,
-    profile_pic TEXT,
-    crumbs INTEGER NOT NULL DEFAULT 0
+create table Users(
+    user_id serial primary key,
+    username varchar(150) unique not null,
+    about_me varchar(500),
+    profile_pic bytea,
+    crumbs int not null default 0
 );
 
-CREATE TABLE Authentication_Manager(
-    user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    PRIMARY KEY (user_id)
+create table Authentication_Manager(
+    user_id int not null references Users(user_id) on delete cascade,
+    primary key (user_id)
 );
 
-CREATE TABLE Local_Login(
-    local_login_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES Authentication_Manager(user_id) ON DELETE CASCADE,
-    salthash TEXT NOT NULL
+create table Local_Login(
+    local_login_id serial primary key,
+    user_id int not null unique references Authentication_Manager(user_id) on delete cascade,
+    salthash char(98) not null
 );
 
-CREATE TABLE RIT_Login(
-    rit_login_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES Authentication_Manager(user_id) ON DELETE CASCADE,
-    rit_uid TEXT NOT NULL UNIQUE
+create table RIT_Login(
+    rit_login_id serial primary key,
+    user_id int not null unique references Authentication_Manager(user_id) on delete cascade,
+    rit_uid char(32) not null unique
 );
 
-CREATE TABLE Multiplayer(
-    multiplayer_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    local_min INTEGER NOT NULL DEFAULT 1,
-    local_max INTEGER NOT NULL DEFAULT 1,
-    online_multiplayer INTEGER NOT NULL DEFAULT 0
+create table Game(
+    game_id serial primary key,
+    title varchar(250) unique not null,
+    author varchar(150) not null,
+    summary varchar(500) not null,
+    release_date timestamptz not null,
+    cover_image bytea not null,
+    multiplayer_id boolean not null default false
 );
 
-CREATE TABLE Game(
-    game_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT UNIQUE NOT NULL,
-    author TEXT NOT NULL,
-    summary TEXT NOT NULL,
-    release_date TEXT NOT NULL,
-    cover_image TEXT NOT NULL,
-    multiplayer_id INTEGER NOT NULL DEFAULT 0
+create table Multiplayer(
+    multiplayer_id serial primary key,
+    local_min int not null default 1,
+    local_max int not null default 1,
+    online_multiplayer boolean not null default false
 );
 
-CREATE TABLE Saves(
-    filename TEXT NOT NULL,
-    user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    game_id INTEGER NOT NULL REFERENCES Game(game_id),
-    data BLOB NOT NULL,
-    save_timestamp TEXT NOT NULL,
-    PRIMARY KEY (filename, user_id, game_id)
+create table Saves(
+    filename varchar(200) not null,
+    user_id int not null references Users(user_id) on delete cascade,
+    game_id int not null references Game(game_id),
+    data bytea not null,
+    save_timestamp timestamptz not null,
+    primary key (filename, user_id, game_id)
 );
 
-CREATE TABLE Plays(
-    user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    game_id INTEGER NOT NULL REFERENCES Game(game_id),
-    time_begin TEXT NOT NULL,
-    time_end TEXT NOT NULL,
-    PRIMARY KEY (user_id, game_id)
+create table Plays(
+    user_id int not null references Users(user_id) on delete cascade,
+    game_id int not null references Game(game_id),
+    time_begin timestamptz not null,
+    time_end timestamptz not null,
+    primary key (user_id, game_id)
 );
 
-CREATE TABLE Favorites(
-    user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    game_id INTEGER NOT NULL REFERENCES Game(game_id) ON DELETE CASCADE,
-    favorite_time TEXT NOT NULL,
-    PRIMARY KEY (user_id, game_id)
+create table Favorites(
+    user_id int not null references Users(user_id) on delete cascade,
+    game_id int not null references Game(game_id) on delete cascade,
+    favorite_time timestamptz not null,
+    primary key (user_id, game_id)
 );
 
-CREATE TABLE Reviews(
-    user_id INTEGER NOT NULL REFERENCES Users(user_id),
-    game_id INTEGER NOT NULL REFERENCES Game(game_id) ON DELETE CASCADE,
-    review_time TEXT NOT NULL,
-    is_liked INTEGER NOT NULL,
-    PRIMARY KEY (user_id, game_id)
+create table Reviews(
+    user_id int not null references Users(user_id),
+    game_id int not null references Game(game_id) on delete cascade,
+    review_time timestamptz not null,
+    is_liked boolean not null,
+    primary key (user_id, game_id)
 );
 
-CREATE TABLE Leaderboard_Entry(
-    lb_entry_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL REFERENCES Users(user_id),
-    game_id INTEGER NOT NULL REFERENCES Game(game_id) ON DELETE CASCADE,
-    value_num REAL NOT NULL,
-    value_name TEXT NOT NULL,
-    lb_timestamp TEXT NOT NULL
+create table Leaderboard_Entry(
+    lb_entry_id serial primary key,
+    user_id int not null references Users(user_id),
+    game_id int not null references Game(game_id) on delete cascade,
+    value_num double precision not null,
+    value_name varchar(150) not null,
+    lb_timestamp timestamptz not null
 );
 
-CREATE TABLE Genre(
-    genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    genre_name TEXT UNIQUE NOT NULL
+create table Genre(
+    genre_id serial primary key,
+    genre_name varchar(100) unique not null
 );
 
-CREATE TABLE Belongs_To(
-    game_id INTEGER NOT NULL REFERENCES Game(game_id) ON DELETE CASCADE,
-    genre_id INTEGER NOT NULL REFERENCES Genre(genre_id) ON DELETE CASCADE
+create table Belongs_To(
+    game_id int not null references Game(game_id) on delete cascade,
+    genre_id int not null references Genre(genre_id) on delete cascade
 );

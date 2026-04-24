@@ -11,6 +11,16 @@ export async function getGenres(){
     return genres;
 }
 
+export async function getFeatured(){
+    const games = await sql<Game[]>`select * from Game where game_id in (select game_id from Featured_Games);`
+    for (let game of games){
+        game.multiplayer = (await sql<Multiplayer[]>`select * from Multiplayer where multiplayer_id = ${ game.multiplayer_id };`)?.[0]
+        game.genres = await sql<Genre[]>`select * from Genre where genre_id in (select genre_id from Belongs_To where game_id = ${ game.game_id });`
+        game.images = await sql<Game_Image[]>`select * from Game_Image where game_id = ${ game.game_id };`
+    }
+    return games;
+}
+
 export async function getGames(filter: Filter, offset: number = 0, limit: number = 12){
     const new_releases_cut_off = "\'1 week\'"
 
@@ -106,7 +116,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         game.genres = await sql<Genre[]>`select * from Genre where genre_id in (select genre_id from Belongs_To where game_id = ${ game.game_id });`
         game.images = await sql<Game_Image[]>`select * from Game_Image where game_id = ${ game.game_id };`
     }
-    return games
+    return games;
 }
 
 

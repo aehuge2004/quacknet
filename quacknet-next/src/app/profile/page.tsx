@@ -13,13 +13,13 @@ import UserProfileInformation from '../components/UserProfileInformation'
 export default function Home() {
   const router = useRouter()
   return (
-    <main>
+    <main style={{height: '100vh'}}>
         <Menu />
         <Box sx={{height: '15vh'}}></Box>
         <div> 
 
-            <Grid container spacing={2}>
-                <Grid size={3}>
+            <Grid container spacing={3} sx={{padding: '1vw'}}>
+                <Grid size={2.5}>
                     <Stack direction="column" sx={{alignItems: 'center', gap: 2}}>
                         <img src="/images/profile-icon.svg" alt="Profile Icon" width={'100%'} height={200} />
                         <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white'}}>

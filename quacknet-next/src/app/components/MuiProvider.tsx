@@ -1,7 +1,10 @@
-'use client'
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
+import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 
-const theme = createTheme() // customize this as needed
+const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-poppins), sans-serif',
+  },
+});
 
 export default function MuiProvider({ children }: { children: React.ReactNode }) {
   return (
@@ -9,5 +12,5 @@ export default function MuiProvider({ children }: { children: React.ReactNode })
       <CssBaseline />
       {children}
     </ThemeProvider>
-  )
+  );
 }

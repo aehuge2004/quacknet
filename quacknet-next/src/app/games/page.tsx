@@ -11,7 +11,6 @@ import SearchBar from '../components/SearchBar';
 import FilterOptions from '../components/FilterOptions';
 import Grid from '@mui/material/Grid';
 import Menu from '../components/Menu';
-import CircularProgress from '@mui/material/CircularProgress';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
@@ -25,6 +24,7 @@ function GamesPage() {
           if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
           const data = await response.json();
           console.log('Fetched games:', data); // confirm data is coming in
+                    await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds
           setGames(data);
         } catch (err) {
           console.error('Failed to fetch games:', err);
@@ -41,7 +41,7 @@ function GamesPage() {
       <main>
         <Menu />
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <CircularProgress />
+          <img src="/favicon.ico" alt="Loading..." style={{ width: '50px', height: '50px', animation: 'spin 2s linear infinite' }} />
         </Box>
       </main>
     );

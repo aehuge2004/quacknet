@@ -3,8 +3,12 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
+type SearchBarProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase({value, onChange}: SearchBarProps) {
   return (
     <Paper
       component="form"
@@ -15,6 +19,8 @@ export default function CustomizedInputBase() {
       </IconButton>
       <InputBase
         sx={{ ml: 1, flex: 1, color: 'white' }}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         placeholder="Search Games"
         inputProps={{ 'aria-label': 'search google maps' }}
       />

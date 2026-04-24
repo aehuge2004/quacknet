@@ -3,17 +3,8 @@ import sql from "./db";
 import { Game } from "@/types/games";
 import { Multiplayer } from "@/types/multiplayers";
 import { Game_Image } from "@/types/game_images";
-
-export type Filter = {
-    order_type?: "alphabetical" | "new releases" | "top rated" | "rising" | "popular";
-    genres?: Genre[];
-    single_player?: boolean;
-    multiplayer?: boolean;
-    online_multiplayer?: boolean;
-    text_search?: string;
-    date_begin?: Date;
-    date_end?: Date;
-}
+import { Filter } from "@/types/game_filter_interface";
+import { Console } from "console";
 
 export async function getGenres(){
     const genres = await sql<Genre[]>`select * from genre`
@@ -21,13 +12,13 @@ export async function getGenres(){
 }
 
 export async function getGames(filter: Filter, offset: number = 0, limit: number = 12){
-    const new_releases_cut_off = "1 week"
+    const new_releases_cut_off = "\'1 week\'"
 
     const intersect = sql`
         intersect
     `
     let statements = []
-    if (filter.genres != null){
+    if (filter.genres?.length){
         for (const genre of filter.genres){
             const s1 = sql`select * from Game where
             game_id in (select Belongs_To.game_id
@@ -42,29 +33,30 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         statements.push(s2)
         statements.push(intersect) 
     }
-    if (filter.multiplayer != null){
+    if (filter.multiplayer){
         const s3 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
        Game.cover_image, Game.multiplayer_id from Game inner join Multiplayer on (Game.multiplayer_id = Multiplayer.multiplayer_id)
     where Multiplayer.local_min > 1`
         statements.push(s3)
         statements.push(intersect)
     }
-    if (filter.single_player != null){
+    if (filter.single_player){
         const s4 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,,
        Game.cover_image, Game.multiplayer_id from Game inner join Multiplayer on (Game.multiplayer_id = Multiplayer.multiplayer_id)
     where Multiplayer.local_min = 1`
         statements.push(s4)
         statements.push(intersect)
     }
-    if (filter.online_multiplayer != null){
+    if (filter.online_multiplayer){
         const s5 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
        Game.cover_image, Game.multiplayer_id from Game inner join Multiplayer on (Game.multiplayer_id = Multiplayer.multiplayer_id)
     where Multiplayer.online_multiplayer = true`
         statements.push(s5)
         statements.push(intersect)
     }
-    if (filter.text_search != null){
-        const s6 = sql`select * from Game where title like '%${ filter.text_search }%' or author like '%${ filter.text_search }%' or summary like '%${ filter.text_search }%'`
+    if (filter.text_search){
+        filter.text_search = "%" + filter.text_search + "%"
+        const s6 = sql`select * from Game where title ilike ${ filter.text_search } or author ilike ${ filter.text_search } or summary ilike ${ filter.text_search }`
         statements.push(s6)
         statements.push(intersect)
     }
@@ -73,17 +65,18 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         statements.push(s7)
     }
     else if (filter.order_type === "new releases"){
-        const s7 = sql`select * from Game where release_date > now() - interval ${ new_releases_cut_off } order by release_date desc`
+        const s7 = sql`select * from Game where release_date > now() - ${ new_releases_cut_off }::interval order by release_date desc`
         statements.push(s7)
     }
     else if (filter.order_type === "top rated"){
-        const s7 = sql`select Game.game_id, Game.title, Game.author, Game.release_date, Game.summary,
-      Game.cover_image, Game.multiplayer_id, 100.0 * sum(Reviews.is_liked::int) / count(Reviews.is_liked) as rating_percentage
-        from Reviews left join Game on (Game.game_id = Reviews.game_id) group by game.game_id order by rating_percentage desc`
+        const s7 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
+      Game.cover_image, Game.multiplayer_id
+        from Reviews left join Game on (Game.game_id = Reviews.game_id) group by game.game_id order by 100.0 * sum(Reviews.is_liked::int) / count(Reviews.is_liked) desc`
         statements.push(s7)
     }
     else if (filter.order_type === "rising"){
-        const s7 = sql`select * from Game left join
+        const s7 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
+      Game.cover_image, Game.multiplayer_id from Game left join
     (select this_week.game_id as plays_game_id, (coalesce(this_week.play_time, interval '0') - coalesce(last_week.play_time, interval '0')) as time_diff from
         (select game_id, sum(time_end - time_begin) as play_time from Plays
             where time_begin >= now() - interval '1 week' group by Plays.game_id) as this_week
@@ -96,7 +89,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         statements.push(s7)
     }
     else if (filter.order_type === "popular"){
-        const s7 = sql`select Game.game_id, Game.title, Game.author, Game.release_date, Game.summary,
+        const s7 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date, 
       Game.cover_image, Game.multiplayer_id, sum(Plays.time_end - Plays.time_begin) as play_time
         from Plays left join Game on (Game.game_id = Plays.game_id) group by game.game_id order by play_time desc`
         statements.push(s7)
@@ -105,7 +98,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         const s7 = sql`select * from Game order by release_date desc`
         statements.push(s7)
     }
-
+    
     const games = await sql<Game[]>`select * from (${statements}) limit ${ limit } offset ${ offset };`
 
     for (let game of games){

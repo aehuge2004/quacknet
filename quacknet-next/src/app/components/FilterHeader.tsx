@@ -1,12 +1,16 @@
 import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { Filter } from '@/types/game_filter_interface';
 
 
+type FilterHeaderProps = {
+  value: Filter["order_type"];
+  onChange: (value: Filter["order_type"]) => void;
+};
 
 
-
-export default function ColorToggleButton() {
+export default function ColorToggleButton({onChange}: FilterHeaderProps) {
   const [alignment, setAlignment] = React.useState('popular');
 
   const handleChange = (
@@ -14,6 +18,7 @@ export default function ColorToggleButton() {
     newAlignment: string,
   ) => {
     setAlignment(newAlignment);
+    onChange(newAlignment as Filter["order_type"]);
   };
 
   return (
@@ -46,8 +51,8 @@ export default function ColorToggleButton() {
     >
       <ToggleButton value="popular">Popular</ToggleButton>
       <ToggleButton value="rising">Rising</ToggleButton>
-      <ToggleButton value="top">Top Rated</ToggleButton>
-      <ToggleButton value="new">New Releases</ToggleButton>
+      <ToggleButton value="top rated">Top Rated</ToggleButton>
+      <ToggleButton value="new releases">New Releases</ToggleButton>
       <ToggleButton value="alphabetical">Alphabetical</ToggleButton>
     </ToggleButtonGroup>
   );

@@ -14,22 +14,38 @@ import Menu from '../components/Menu';
 
 function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchGames = async () => {
-      try {
-        const response = await fetch('/api/games');
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        const data = await response.json();
-        console.log('Fetched games:', data); // confirm data is coming in
-        setGames(data);
-      } catch (err) {
-        console.error('Failed to fetch games:', err);
-      }
-  };
+        setLoading(true);
+        try {
+          const response = await fetch('/api/games');
+          if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+          const data = await response.json();
+          console.log('Fetched games:', data); // confirm data is coming in
 
-  fetchGames();
-}, []);
+          setGames(data);
+        } catch (err) {
+          console.error('Failed to fetch games:', err);
+        } finally {
+          setLoading(false);
+        }
+    };
+
+    fetchGames();
+  }, []);
+
+  if (loading) {
+    return (
+      <main>
+        <Menu />
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <img src="/favicon.ico" alt="Loading..." style={{ width: '50px', height: '50px', animation: 'spin 2s linear infinite' }} />
+        </Box>
+      </main>
+    );
+  }
 
   return (
     <main>

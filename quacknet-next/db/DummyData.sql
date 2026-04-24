@@ -1,3 +1,33 @@
+riceandbeans
+riceandbeanss
+Invisible
+
+Sadistic Biped
+ started a call that lasted 2 hours. — 3/14/2026 3:13 PM
+riceandbeans
+ started a call that lasted an hour. — 3/16/2026 9:09 PM
+riceandbeans
+ started a call that lasted an hour. — 3/21/2026 2:45 PM
+riceandbeans — 3/25/2026 7:20 PM
+call me when you’re ready
+Sadistic Biped
+ started a call that lasted an hour. — 3/25/2026 7:22 PM
+Sadistic Biped
+ started a call that lasted an hour. — 4/1/2026 7:28 PM
+Sadistic Biped — 4/21/2026 6:51 PM
+https://docs.google.com/document/d/1QxUHmM9vjyK_nN-B94qkc3nQuLT_aGKsXzqkK3X2nQQ/edit?usp=sharing
+Sadistic Biped — Yesterday at 8:37 PM
+Forwarded
+--popularity: all games, sorted by time played
+select Game.game_id, Game.title, Game.author, Game.release_date, Game.summary,
+       Game.cover_image, Game.multiplayer_id, sum(Plays.time_end - Plays.time_begin) as play_time
+        from Plays left join Game on (Game.game_id = Plays.game_id) group by game.game_id order by play_time desc;
+
+--rising: all games, sorted by large increase in play time within the last week
+
+WebSearchDML.sql
+3 KB
+Forwarded
 -- Users
 insert into Users (username, about_me, crumbs)
 values

@@ -40,7 +40,7 @@ function GamesCarousel({games}: {games: Game[]}) {
           <Stack spacing={2}>
             {games.slice(0, 4).map((game, index) => (
               <Box
-                key={game.id}
+                key={game.game_id}
                 onClick={() => setActiveIndex(index)}
                 sx={{
                   position: 'relative',

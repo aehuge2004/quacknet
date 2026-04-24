@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid'
 import UserProfileInformation from '../components/UserProfileInformation'
 import IdLinkProfile from '../components/IdLinkProfile'
+import DangerZone from '../components/DangerZone'
 
 export default function Home() {
   const router = useRouter()
@@ -19,7 +20,7 @@ export default function Home() {
         <div> 
 
             <Grid container spacing={3} sx={{padding: '1vw'}}>
-                <Grid size={2.5}>
+                <Grid size={3}>
                     <Stack direction="column" sx={{alignItems: 'center', gap: 2}}>
                         <img src="/images/profile-icon.svg" alt="Profile Icon" width={'100%'} height={200} />
                         <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white'}}>
@@ -33,8 +34,8 @@ export default function Home() {
                 <Grid size={3}>
                     <IdLinkProfile />
                 </Grid>
-                <Grid size={2}>
-                    {/* danger zone */}
+                <Grid size={3}>
+                    <DangerZone />
                 </Grid>
             </Grid>
             

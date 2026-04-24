@@ -13,6 +13,9 @@
   }
 }
 
+@theme {
+  --font-sans: var(--font-poppins), sans-serif;
+}
 
 @theme inline {
   --color-background: var(--background);

@@ -4,14 +4,12 @@ import "./globals.css";
 import MuiProvider from './components/MuiProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Poppins } from 'next/font/google';
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -19,14 +17,15 @@ export const metadata: Metadata = {
   description: "The Quackbox games, all online.",
 };
 
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={poppins.variable}>
       <body>
         <MuiProvider>
           {children}
         </MuiProvider>
       </body>
     </html>
-  )
+  );
 }

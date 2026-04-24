@@ -28,23 +28,25 @@ const ThemedTextField = styled(TextField)({
   },
 });
 
-export default function SignInField() {
+export default function CreateAccountFields() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'white', width: '30vw', padding: '2vw', borderRadius: '10px' }}>
         <Typography variant="h4" sx={{ mb: 2, color: '#000000', fontWeight: 'bold' }}>
-            Sign In
+            Create an Account
         </Typography>
         <ThemedTextField label="Email" variant="outlined" sx={{ m: 1, width: '100%' }} />
         <ThemedTextField label="Password" variant="outlined" sx={{ m: 1, width: '100%' }} />
-        <Typography variant="body2" sx={{ alignSelf: 'flex-start'}}>
-            <a href="/forgot-password" style={{ color: '#1F5960', fontWeight: 'bold', display: 'flex' }}>Forgot Password?</a>
+        <Typography variant="caption" sx={{ alignSelf: 'flex-start', color: '#000000', fontWeight: 'normal', fontSize: '12px' }}>
+            Password must be at least 8 characters long and contain at least one number and one special character.
         </Typography>
+        <ThemedTextField label="Re-enter Password" variant="outlined" sx={{ m: 1, width: '100%' }} />
+
         <Button variant="contained" sx={{ mt: 3, backgroundColor: '#1F5960', color: 'white', width: '90%', textTransform: 'none', fontWeight: 'bold' }}>
-            Sign In
+            Create Account
         </Button>
         <Stack direction="row" spacing={2} sx={{ mt: 2}}>
             <Typography variant="body2" sx={{ color: '#000000', fontWeight: 'normal', fontSize: '14px', alignSelf: 'center', marginTop: '10px' }}>
-                Don't have an account? <a href="/create-account" style={{ color: '#1F5960', fontWeight: 'bold' }}>Create an Account</a>
+                Already have an account? <a href="/sign-in" style={{ color: '#1F5960', fontWeight: 'bold' }}>Sign In</a>
             </Typography>
         </Stack>
 
@@ -61,3 +63,14 @@ export default function SignInField() {
     </Box>
   );
 }
+
+{/* 
+  ERROR TEXT FIELD
+  <TextField
+  error
+  id="outlined-error-helper-text"
+  label="Error"
+  defaultValue="Hello World"
+  helperText="Incorrect entry."
+/> 
+*/}

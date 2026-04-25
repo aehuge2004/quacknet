@@ -27,7 +27,7 @@ const ThemedTextField = styled(TextField)({
   },
 });
 
-export default function SignInField({ authenticated }: {user: Users}) {
+export default function SignInField() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

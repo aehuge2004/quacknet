@@ -81,7 +81,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
     else if (filter.order_type === "top rated"){
         const s7 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
       Game.cover_image, Game.multiplayer_id
-        from Reviews left join Game on (Game.game_id = Reviews.game_id) group by game.game_id order by 100.0 * sum(Reviews.is_liked::int) / count(Reviews.is_liked) desc`
+        from Game left join Reviews on (Game.game_id = Reviews.game_id) group by game.game_id order by coalesce(100.0 * sum(Reviews.is_liked::int) / count(Reviews.is_liked), 0) desc`
         statements.push(s7)
     }
     else if (filter.order_type === "rising"){
@@ -100,8 +100,8 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
     }
     else if (filter.order_type === "popular"){
         const s7 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date, 
-      Game.cover_image, Game.multiplayer_id, sum(Plays.time_end - Plays.time_begin) as play_time
-        from Plays left join Game on (Game.game_id = Plays.game_id) group by game.game_id order by play_time desc`
+      Game.cover_image, Game.multiplayer_id
+        from Game left join Plays on (Game.game_id = Plays.game_id) group by game.game_id order by coalesce(sum(Plays.time_end - Plays.time_begin), interval '0') desc`
         statements.push(s7)
     }
     else {

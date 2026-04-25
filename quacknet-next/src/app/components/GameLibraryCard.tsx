@@ -7,7 +7,7 @@ export default function GameLibraryCard({ game }: { game: any }) {
   return (
     <Card
       sx={{
-        width: 280,
+        width: '30%',
         // borderRadius: 3,
         overflow: 'hidden',
         cursor: 'pointer',
@@ -21,7 +21,7 @@ export default function GameLibraryCard({ game }: { game: any }) {
         {/* The image */}
         <CardMedia
           component="img"
-          image={game.cover_image}
+          image={`data:image/png;base64,${Buffer.from(game.cover_image).toString("base64")}`}
           alt={game.title}
           className="card-media"
           sx={{

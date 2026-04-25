@@ -116,6 +116,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
         game.genres = await sql<Genre[]>`select * from Genre where genre_id in (select genre_id from Belongs_To where game_id = ${ game.game_id });`
         game.images = await sql<Game_Image[]>`select * from Game_Image where game_id = ${ game.game_id };`
     }
+
     return games;
 }
 

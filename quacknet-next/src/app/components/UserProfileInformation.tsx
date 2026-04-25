@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import EmailIcon from '@mui/icons-material/Email';
 
-export default function UserProfileInformation() {
+export default function UserProfileInformation({ user }: { user: any }) {
     return (
         <Box sx={{ borderColor: '#99D6DE', borderWidth: '1px', borderRadius: '10px', padding: '15px'}}>
             <Stack direction="column" sx={{ alignItems: 'center', justifyContent: 'center'}}>
@@ -16,15 +16,15 @@ export default function UserProfileInformation() {
                 </Typography>
                 <Stack sx={{width: '90%', height: '5vh', borderRadius: '5px', background: '#2A4245', borderColor: '#99D6DE', borderWidth: '1px', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography sx={{ color: 'white' }}>
-                        username
+                        {user.username}
                     </Typography>
                 </Stack>
                 <Typography variant="subtitle1" sx={{ color: 'white', alignSelf: 'flex-start', marginLeft: '1vw'}}>
-                    Email
+                    Crumbs
                 </Typography>
                 <Stack sx={{width: '90%', height: '5vh', borderRadius: '5px', background: '#2A4245', borderColor: '#99D6DE', borderWidth: '1px', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography sx={{ color: 'white'}}>
-                        email
+                        {user.crumbs}
                     </Typography>
                 </Stack>
                 <Typography variant="subtitle1" sx={{ color: 'white', alignSelf: 'flex-start', marginLeft: '1vw'}}>

@@ -3,7 +3,7 @@ export type Users = {
   username?: string;
   about_me?: string;
   crumbs?: number;
-  profile_pic?: string;  // now a path like "/images/space-blaster.jpg"\
+  profile_pic?: Buffer;
   time_played?: Date;
   favorite_games?: number[];
 };

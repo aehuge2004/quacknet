@@ -1,21 +1,16 @@
 'use client';
 import { createContext, useContext, useState, ReactNode } from 'react';
-
-interface User {
-  id: string;
-  email: string;
-  // add whatever fields your API returns
-}
+import { Users } from "@/types/users"
 
 interface UserContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: Users | null;
+  setUser: (user: Users | null) => void;
 }
 
 const UserContext = createContext<UserContextType | null>(null);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Users | null>(null);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

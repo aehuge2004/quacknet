@@ -23,6 +23,8 @@ export default function Home() {
 
     if (!user) return null; // prevent flash of content before redirect
 
+    console.log(user)
+
   return (
     <main style={{height: '100vh'}}>
         <Menu />
@@ -34,12 +36,12 @@ export default function Home() {
                     <Stack direction="column" sx={{alignItems: 'center', gap: 2}}>
                         <img src="/images/profile-icon.svg" alt="Profile Icon" width={'100%'} height={200} />
                         <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white'}}>
-                            username
+                            {user.username}
                         </Typography>
                     </Stack>
                 </Grid>
                 <Grid size={3}>
-                    <UserProfileInformation/>
+                    <UserProfileInformation user={user}/>
                 </Grid>
                 <Grid size={3}>
                     <IdLinkProfile />

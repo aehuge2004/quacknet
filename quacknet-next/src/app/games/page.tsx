@@ -26,7 +26,7 @@ function GamesPage() {
     useEffect(() => {
       const fetchGames = async () => {
       try {
-        // console.log("Filter:", filter)
+        console.log("Filter:", filter)
         const response = await fetch("/api/games", {
           method: "POST",
           headers: {
@@ -34,7 +34,6 @@ function GamesPage() {
           },
           body: JSON.stringify(filter),
         });
-        // console.log(response)
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
         console.log('Fetched games:', data); // confirm data is coming in

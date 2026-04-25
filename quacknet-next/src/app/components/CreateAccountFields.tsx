@@ -8,6 +8,8 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useUser } from '../context/UserContext';
+import { Users } from '@/types/users';
 
 const ThemedTextField = styled(TextField)({
   '& label.Mui-focused': { color: '#1F5960' },
@@ -16,6 +18,12 @@ const ThemedTextField = styled(TextField)({
     '& fieldset': { borderColor: '#949494' },
     '&:hover fieldset': { borderColor: '#949494' },
     '&.Mui-focused fieldset': { borderColor: '#1F5960' },
+  },
+  '& input:-webkit-autofill ~ fieldset legend': {
+    maxWidth: '100%',
+  },
+  '& input:-webkit-autofill + .MuiInputLabel-root': {
+    transform: 'translate(14px, -9px) scale(0.75)',
   },
 });
 
@@ -32,12 +40,13 @@ function validatePassword(password: string): string[] {
 
 export default function CreateAccountFields() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const { setUser } = useUser();
 
   // ── Live validation as user types ─────────────────────────────────────────
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +78,7 @@ export default function CreateAccountFields() {
       const response = await fetch("/api/auth/create-account", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -77,6 +86,10 @@ export default function CreateAccountFields() {
         setErrorMessage(error.message ?? "Failed to create account.");
         return;
       }
+
+      const user: Users = await response.json()
+
+      setUser(user)
 
       router.push("/profile");
     } catch (err) {
@@ -94,10 +107,10 @@ export default function CreateAccountFields() {
       </Typography>
 
       <ThemedTextField
-        label="Email"
+        label="Username"
         variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         sx={{ m: 1, width: '100%' }}
       />
 

@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const { username, password } = await req.json();
 
-  const user = loginUser(username, password)
+  const user = await loginUser(username, password)
 
   if (user == null) {
     return NextResponse.json({ message: "User not found" }, { status: 401 });

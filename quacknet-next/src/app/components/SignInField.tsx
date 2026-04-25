@@ -19,11 +19,17 @@ const ThemedTextField = styled(TextField)({
     '&:hover fieldset': { borderColor: '#949494' },
     '&.Mui-focused fieldset': { borderColor: '#1F5960' },
   },
+  '& input:-webkit-autofill ~ fieldset legend': {
+    maxWidth: '100%',
+  },
+  '& input:-webkit-autofill + .MuiInputLabel-root': {
+    transform: 'translate(14px, -9px) scale(0.75)',
+  },
 });
 
-export default function SignInField({ authenticated }: {user: Users[]}) {
+export default function SignInField({ authenticated }: {user: Users}) {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { setUser } = useUser();
@@ -33,7 +39,7 @@ export default function SignInField({ authenticated }: {user: Users[]}) {
       const response = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -41,6 +47,15 @@ export default function SignInField({ authenticated }: {user: Users[]}) {
         setErrorMessage(error.message ?? "Invalid credentials");
         return;
       }
+
+      const user: Users = await response.json()
+
+      console.log("RAW USER:", user);
+console.log("TYPE:", typeof user);
+console.log("KEYS:", Object.keys(user || {}));
+console.log("JSON:", JSON.stringify(user, null, 2));
+
+      setUser(user)
 
       router.push("/profile");
     } catch (err) {
@@ -55,10 +70,10 @@ export default function SignInField({ authenticated }: {user: Users[]}) {
       </Typography>
 
       <ThemedTextField
-        label="Email"
+        label="Username"
         variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         sx={{ m: 1, width: '100%' }}
       />
       <ThemedTextField

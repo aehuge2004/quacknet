@@ -53,7 +53,7 @@ function GamesCarousel({games}: {games: Game[]}) {
                 }}
               >
                 <img
-                  src={game.cover_image}
+                  src={`data:image/png;base64,${Buffer.from(game.cover_image).toString("base64")}`}
                   alt={game.title}
                   style={{ width: '100%', height: '80px', objectFit: 'cover', display: 'block' }}
                 />

@@ -14,11 +14,13 @@ import Menu from '../components/Menu';
 import { Filter } from '@/types/game_filter_interface';
 
 function GamesPage() {
-    const [games, setGames] = useState<Game[]>([]);
+  const [filter, setFilter] = useState<Filter>({});
 
-    const [filter, setFilter] = useState<Filter>({
-      order_type: "alphabetical",
-    });
+  const handleFilterChange = (newFilter: Filter) => {
+    setFilter(newFilter);
+    // Pass to your backend filter function here, e.g.:
+    // applyFilter(newFilter);
+  };
   
     useEffect(() => {
       const fetchGames = async () => {
@@ -78,7 +80,7 @@ function GamesPage() {
         {/* MAKE SPACE FOR FILTER IN A SECODARY STACK*/}
         <Grid container spacing={2} sx={{padding: 2, borderRadius: 2}}>
           <Grid size={3}>
-            <FilterOptions />
+            <FilterOptions onFilterChange={handleFilterChange} />
           </Grid>
           <Grid size={9}>
             <Stack direction="row" spacing={5} useFlexGap sx={{justifyContent: "flex-start", alignItems: "center", flexWrap: 'wrap', marginLeft: '4vw'}}>

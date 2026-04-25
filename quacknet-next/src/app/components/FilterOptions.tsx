@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Genre from '@/types/genres.ts'
+import { Filter } from '@/types/game_filter_interface';
 
 const localTheme = createTheme( {
   components: {
@@ -40,7 +42,14 @@ const localTheme = createTheme( {
 
 export default function FilterOptions() {
     const [alignment, setAlignment] = useState<string | null>(null);
+    const [genres, setGenres] = useState<Genre[]>([]);
+    // const [partialFilter, setPartialFilter] = useState<Filter>({});
 
+    useEffect(() => {
+      (async () => {
+        setGenres(await (await fetch("/api/genres")).json())
+      })()
+    }, [])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAlignment(e.target.value);
     };
@@ -74,9 +83,9 @@ export default function FilterOptions() {
         </RadioGroup>
         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'white' }}>Genres</Typography>
         <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="Genre" />
-            <FormControlLabel control={<Checkbox />} label="Genre" />
-            <FormControlLabel control={<Checkbox />} label="Genre" />
+             {genres.map((genre) => ((
+              <FormControlLabel control={<Checkbox />} label={genre.genre_name} />
+             )))}
         </FormGroup>
         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'white' }}>Release Date</Typography>
         <FormGroup>

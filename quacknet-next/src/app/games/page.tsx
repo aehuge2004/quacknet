@@ -11,14 +11,30 @@ import SearchBar from '../components/SearchBar';
 import FilterOptions from '../components/FilterOptions';
 import Grid from '@mui/material/Grid';
 import Menu from '../components/Menu';
+import { Filter } from '@/types/game_filter_interface';
 
 function GamesPage() {
-    const [games, setGames] = useState<Game[]>([]);
+  const [filter, setFilter] = useState<Filter>({});
+  const [games, setGames] = useState<Game[]>([]);
+
+  const handleFilterChange = (newFilter: Filter) => {
+    setFilter(newFilter);
+    // Pass to your backend filter function here, e.g.:
+    // applyFilter(newFilter);
+  };
   
     useEffect(() => {
       const fetchGames = async () => {
       try {
-        const response = await fetch('/api/games');
+        // console.log("Filter:", filter)
+        const response = await fetch("/api/games", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(filter),
+        });
+        // console.log(response)
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
         console.log('Fetched games:', data); // confirm data is coming in
@@ -29,7 +45,7 @@ function GamesPage() {
   };
 
   fetchGames();
-}, []);
+}, [filter]);
 
   return (
     <main>
@@ -42,18 +58,33 @@ function GamesPage() {
         
         <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "flex-start", alignItems: "center", width: '100%', flexWrap: 'wrap', marginTop: '5vh'}}>
           <Box sx={{width: '1vw'}}></Box>
-          <SearchBar />
+          <SearchBar
+            value={filter.text_search ?? ""}
+            onChange={(val: string) =>
+              setFilter(prev => ({ ...prev, text_search: val }))
+            }
+          />
           <Box sx={{width: '15vw'}}></Box>
-          <FilterHeader />
+          <FilterHeader 
+            value={filter.order_type}
+            onChange={(value: Filter["order_type"]) => {
+              console.log(value)
+              setFilter(prev => ({
+                ...prev,
+                order_type: value
+              }))
+            }
+            }
+          />
         </Stack>
         <Box sx={{height: '5vh'}}></Box>
         {/* MAKE SPACE FOR FILTER IN A SECODARY STACK*/}
         <Grid container spacing={2} sx={{padding: 2, borderRadius: 2}}>
           <Grid size={3}>
-            <FilterOptions />
+            <FilterOptions onFilterChange={handleFilterChange} />
           </Grid>
           <Grid size={9}>
-            <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
+            <Stack direction="row" spacing={5} useFlexGap sx={{justifyContent: "flex-start", alignItems: "center", flexWrap: 'wrap', marginLeft: '4vw'}}>
               {games.map((game) => (
                 <GameLibraryCard key={game.game_id} game={game} />
               ))}

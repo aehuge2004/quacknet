@@ -4,7 +4,6 @@ import { Game } from "@/types/games";
 import { Multiplayer } from "@/types/multiplayers";
 import { Game_Image } from "@/types/game_images";
 import { Filter } from "@/types/game_filter_interface";
-import { Console } from "console";
 
 export async function getGenres(){
     const genres = await sql<Genre[]>`select * from genre`

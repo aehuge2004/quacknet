@@ -24,7 +24,7 @@ function GamesCarousel({games}: {games: Game[]}) {
             {games.slice(0, 4).map((game) => {
               return (
                   <Carousel.Item key={game.game_id} style={{width: '100%', height: '50vh'}}>
-                    <img src={`/${game.cover_image}`} className="d-block w-100" alt="First slide" width={100} height={100} />
+                    <img src={`data:image/png;base64,${Buffer.from(game.cover_image).toString("base64")}`} className="d-block w-100" alt="First slide" style={{ width: '100%', height: '50vh', objectFit: 'cover', objectPosition: 'center' }} />
                     <Carousel.Caption style={{ justifyContent: 'flex-start', textAlign: 'left', backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px' }}>
                       <h3>{game.title}</h3>
                       <p style={{ fontSize: '14px' }}>

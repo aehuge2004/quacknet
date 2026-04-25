@@ -16,6 +16,28 @@ import { Filter } from '@/types/game_filter_interface';
 function GamesPage() {
   const [filter, setFilter] = useState<Filter>({});
   const [games, setGames] = useState<Game[]>([]);
+  const [featured, setFeatured] = useState<Game[]>([])
+
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        console.log("Filter:", filter)
+        const response = await fetch("/api/games", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        const data = await response.json();
+        console.log('Fetched featured games:', data); // confirm data is coming in
+        setFeatured(data);
+      } catch (err) {
+        console.error('Failed to fetch games:', err);
+      }
+  };
+  fetchFeatured();
+}, []);
 
   const handleFilterChange = (newFilter: Filter) => {
     setFilter(newFilter);
@@ -51,7 +73,7 @@ function GamesPage() {
       <Menu />
       <div>
         <Box sx={{height: '20vh'}}></Box>
-        <GamesCarousel games={games}/>
+        <GamesCarousel games={featured}/>
         <Box sx={{height: '5vh'}}></Box>
         <GamesHeader/> 
         

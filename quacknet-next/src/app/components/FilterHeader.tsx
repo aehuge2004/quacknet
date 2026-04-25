@@ -35,7 +35,7 @@ export default function ColorToggleButton({onChange}: FilterHeaderProps) {
         fontSize: '20px',
         marginLeft: '20px',
         '&:hover': {
-          backgroundColor: 'rgba(153,214,222,0.3)',  // 👈 unselected hover
+          backgroundColor: 'rgba(153,214,222,0.3)',  //  unselected hover
           color: '#FFF',
         },
       },
@@ -43,7 +43,7 @@ export default function ColorToggleButton({onChange}: FilterHeaderProps) {
         backgroundColor: 'rgba(153,214,222,0.5)',
         color: '#FFF',
         '&:hover': {
-          backgroundColor: 'rgba(153,214,222,0.7)',  // 👈 selected hover
+          backgroundColor: 'rgba(153,214,222,0.7)',  //  selected hover
           color: '#FFF',
         },
       },

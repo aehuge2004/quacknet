@@ -23,21 +23,34 @@ create table RIT_Login(
     rit_uid char(32) not null unique
 );
 
+create table Multiplayer(
+    multiplayer_id serial primary key,
+    local_min int not null default 1,
+    local_max int not null default 1,
+    online_multiplayer boolean not null default false
+);
+
 create table Game(
     game_id serial primary key,
     title varchar(250) unique not null,
     author varchar(150) not null,
     summary varchar(500) not null,
     release_date timestamptz not null,
-    cover_image varchar(500) not null,
+    cover_image bytea not null,
     multiplayer_id int not null references Multiplayer(multiplayer_id)
 );
 
-create table Multiplayer(
-    multiplayer_id serial primary key,
-    local_min int not null default 1,
-    local_max int not null default 1,
-    online_multiplayer boolean not null default false
+create table Game_Image(
+    game_image_id serial primary key,
+    game_id int not null references Game(game_id),
+    image bytea not null,
+    shape varchar(30) not null
+    constraint c1 check(shape in ('landscape', 'portrait', 'square'))
+);
+
+create table Featured_Games(
+    featured_id serial primary key,
+    game_id int not null references Game(game_id)
 );
 
 create table Saves(
@@ -88,5 +101,6 @@ create table Genre(
 
 create table Belongs_To(
     game_id int not null references Game(game_id) on delete cascade,
-    genre_id int not null references Genre(genre_id) on delete cascade
+    genre_id int not null references Genre(genre_id) on delete cascade,
+    primary key (game_id, genre_id)
 );

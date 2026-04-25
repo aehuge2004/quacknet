@@ -7,7 +7,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import Genre from '@/types/genres.ts'
+import {Genre} from '@/types/genres'
 import { Filter } from '@/types/game_filter_interface';
 
 const localTheme = createTheme( {
@@ -57,7 +57,7 @@ export default function FilterOptions() {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const clicked = (e.target as HTMLInputElement).value;
     if (clicked === alignment) {
-        setAlignment(null);  // 👈 deselects if clicking the already-selected option
+        setAlignment(null);  // deselects if clicking the already-selected option
     }
     };
     return (

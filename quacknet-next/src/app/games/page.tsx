@@ -81,7 +81,7 @@ function GamesPage() {
             <FilterOptions />
           </Grid>
           <Grid size={9}>
-            <Stack direction="row" spacing={2} useFlexGap sx={{justifyContent: "space-evenly", alignItems: "center", width: '100%', flexWrap: 'wrap'}}>
+            <Stack direction="row" spacing={5} useFlexGap sx={{justifyContent: "flex-start", alignItems: "center", flexWrap: 'wrap', marginLeft: '4vw'}}>
               {games.map((game) => (
                 <GameLibraryCard key={game.game_id} game={game} />
               ))}

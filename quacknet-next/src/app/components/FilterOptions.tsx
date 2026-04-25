@@ -1,16 +1,12 @@
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
+import { FormGroup, FormControlLabel, Checkbox, Box, Typography, RadioGroup, Radio } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect, useCallback } from "react";
 import {Genre} from '@/types/genres'
 import { Filter } from '@/types/game_filter_interface';
+import DateRangePicker from "./filters/DateRangePicker";
+import { DateRange } from "./filters/DateRangeTypes";
 
-const localTheme = createTheme( {
+const localTheme = createTheme({
   components: {
     MuiRadio: {
       styleOverrides: {
@@ -39,22 +35,21 @@ const localTheme = createTheme( {
   },
 });
 
-
+// dateRange is fully owned here — removed from props
 interface FilterOptionsProps {
-  /** Called whenever any filter control changes. Receives the assembled Filter. */
   onFilterChange: (filter: Filter) => void;
-  /** Optional controlled date range (used when "Released Between" is selected). */
-  dateRange?: { begin?: Date; end?: Date };
 }
 
+type DateOption = "between" | "past_month" | "past_year";
 
-export default function FilterOptions({ onFilterChange, dateRange }: FilterOptionsProps) {
+export default function FilterOptions({ onFilterChange }: FilterOptionsProps) {
   const [alignment, setAlignment] = useState<string | null>(null);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<Set<Genre>>(new Set());
   const [selectedDateOptions, setSelectedDateOptions] = useState<Set<DateOption>>(new Set());
+  const [dateRange, setDateRange] = useState<DateRange>({});  // ← local state, not a prop
 
-  // ── Fetch available genres once ────────────────────────────────────────────
+  // ── Fetch available genres once ──────────────────────────────────────────
   useEffect(() => {
     (async () => {
       const fetched: Genre[] = await (await fetch("/api/genres")).json();
@@ -62,47 +57,37 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
     })();
   }, []);
 
-
-    //handles unclicking of radio buttons
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const clicked = (e.target as HTMLInputElement).value;
-    if (clicked === alignment) {
-        setAlignment(null);  // deselects if clicking the already-selected option
-    }
-    };
-
-      // ── Build + emit Filter whenever any piece of state changes ───────────────
+  // ── Build + emit Filter ──────────────────────────────────────────────────
   const buildAndEmitFilter = useCallback(
     (
       currentAlignment: string | null,
       currentGenres: Set<Genre>,
       currentDateOptions: Set<DateOption>,
+      currentRange: DateRange = dateRange,  // defaults to current local state
     ) => {
       const filter: Filter = {};
+      const now = new Date();  // ← was missing
 
-      // ── Player type ──────────────────────────────────────────────────────
+      // Player type
       if (currentAlignment === "single") filter.single_player = true;
       if (currentAlignment === "multi") filter.multiplayer = true;
       if (currentAlignment === "online") filter.online_multiplayer = true;
 
-      // ── Genres ───────────────────────────────────────────────────────────
+      // Genres
       if (currentGenres.size > 0) {
         filter.genres = Array.from(currentGenres);
       }
 
-      // ── Date options ─────────────────────────────────────────────────────
-      const now = new Date();
-
+      // Date
       if (currentDateOptions.has("past_month")) {
         filter.date_begin = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
         filter.date_end = now;
       } else if (currentDateOptions.has("past_year")) {
         filter.date_begin = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
         filter.date_end = now;
-      } else if (currentDateOptions.has("between") && dateRange) {
-        // Caller supplies explicit date range when "Released Between" is checked
-        if (dateRange.begin) filter.date_begin = dateRange.begin;
-        if (dateRange.end) filter.date_end = dateRange.end;
+      } else if (currentDateOptions.has("between")) {
+        if (currentRange.begin) filter.date_begin = currentRange.begin;
+        if (currentRange.end) filter.date_end = currentRange.end;
       }
 
       onFilterChange(filter);
@@ -110,7 +95,7 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
     [onFilterChange, dateRange],
   );
 
-  // ── Player alignment ───────────────────────────────────────────────────────
+  // ── Player alignment ─────────────────────────────────────────────────────
   const handleAlignmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = e.target.value;
     setAlignment(next);
@@ -120,13 +105,12 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
   const handleAlignmentClick = (e: React.MouseEvent<HTMLElement>) => {
     const clicked = (e.target as HTMLInputElement).value;
     if (clicked && clicked === alignment) {
-      // Deselect on second click
       setAlignment(null);
       buildAndEmitFilter(null, selectedGenres, selectedDateOptions);
     }
   };
 
-  // ── Genre checkboxes ───────────────────────────────────────────────────────
+  // ── Genre checkboxes ─────────────────────────────────────────────────────
   const handleGenreChange = (genre: Genre, checked: boolean) => {
     setSelectedGenres((prev) => {
       const next = new Set(prev);
@@ -136,13 +120,11 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
     });
   };
 
-  // ── Date option checkboxes ─────────────────────────────────────────────────
+  // ── Date option checkboxes ───────────────────────────────────────────────
   const handleDateOptionChange = (option: DateOption, checked: boolean) => {
     setSelectedDateOptions((prev) => {
       const next = new Set(prev);
       if (checked) {
-        // "Past Month" and "Past Year" are mutually exclusive presets;
-        // "Released Between" can coexist with neither preset at the same time.
         if (option === "past_month" || option === "past_year") {
           next.delete("past_month");
           next.delete("past_year");
@@ -160,7 +142,6 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
     });
   };
 
-  
   return (
     <ThemeProvider theme={localTheme}>
       <Box
@@ -197,7 +178,8 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
         <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1, color: "white" }}>
           Genres
         </Typography>
-        <FormGroup>
+        <FormGroup
+        >
           {genres.map((genre) => (
             <FormControlLabel
               key={genre.genre_name}
@@ -219,27 +201,43 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox
+              <Radio
                 checked={selectedDateOptions.has("between")}
                 onChange={(e) => handleDateOptionChange("between", e.target.checked)}
               />
             }
             label="Released Between"
           />
+          {/* ↓ Only shown when "between" is checked — duplicate removed */}
+          {selectedDateOptions.has("between") && (
+            <DateRangePicker
+              value={dateRange}
+              onChange={(range) => {
+                setDateRange(range);
+                buildAndEmitFilter(alignment, selectedGenres, selectedDateOptions, range);
+              }}
+            />
+          )}
           <FormControlLabel
             control={
-              <Checkbox
-                checked={selectedDateOptions.has("past_month")}
-                onChange={(e) => handleDateOptionChange("past_month", e.target.checked)}
+              <Radio
+                checked={selectedDateOptions.has('past_month')}
+                onClick={() => handleDateOptionChange('past_month',
+            !selectedDateOptions.has('past_month')  // toggle: if already selected, uncheck it
+          )}
+          onChange={() => {}}  // suppress MUI's internal onChange to prevent conflicts
               />
             }
             label="Past Month"
           />
           <FormControlLabel
             control={
-              <Checkbox
-                checked={selectedDateOptions.has("past_year")}
-                onChange={(e) => handleDateOptionChange("past_year", e.target.checked)}
+              <Radio
+                checked={selectedDateOptions.has('past_year')}
+                onClick={() => handleDateOptionChange('past_year',
+            !selectedDateOptions.has('past_year')  // toggle: if already selected, uncheck it
+          )}
+          onChange={() => {}}  // suppress MUI's internal onChange to prevent conflicts
               />
             }
             label="Past Year"
@@ -247,6 +245,5 @@ export default function FilterOptions({ onFilterChange, dateRange }: FilterOptio
         </FormGroup>
       </Box>
     </ThemeProvider>
-
   );
 }

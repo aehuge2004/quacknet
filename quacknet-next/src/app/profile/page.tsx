@@ -10,6 +10,8 @@ import Grid from '@mui/material/Grid'
 import UserProfileInformation from '../components/UserProfileInformation'
 import IdLinkProfile from '../components/IdLinkProfile'
 import DangerZone from '../components/DangerZone'
+import { useUser } from '../context/UserContext';
+import { useEffect } from 'react'
 
 export default function Home() {
   const router = useRouter()
@@ -18,7 +20,7 @@ export default function Home() {
     useEffect(() => {
         if (!user) router.push('/sign-in');
     }, [user]);
-    
+
     if (!user) return null; // prevent flash of content before redirect
 
   return (

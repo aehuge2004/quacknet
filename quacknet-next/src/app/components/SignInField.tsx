@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Users } from "@/types/users"
+import { useUser } from '../context/UserContext';
 
 const ThemedTextField = styled(TextField)({
   '& label.Mui-focused': { color: '#1F5960' },
@@ -27,29 +28,6 @@ export default function SignInField({ authenticated }: {user: Users[]}) {
   const [errorMessage, setErrorMessage] = useState('');
   const { setUser } = useUser();
     
-  
-  const handleSignIn = async () => {
-    try {
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        setErrorMessage(error.message ?? "Invalid credentials");
-        return;
-      }
-
-      const data = await response.json();
-      setUser(data.user);      // ← store user in context before navigating
-      router.push("/profile");
-    } catch (err) {
-      setErrorMessage("Something went wrong. Please try again.");
-    }
-  };
-  
   const handleSignIn = async () => {
     try {
       const response = await fetch("/api/auth/signin", {

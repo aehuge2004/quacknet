@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import MuiProvider from './components/MuiProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { UserProvider } from '@/context/UserContext';
+import { UserProvider } from './context/UserContext';
 
 const poppins = Poppins({
   subsets: ['latin'],

@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import MuiProvider from './components/MuiProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserProvider } from '@/context/UserContext';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={poppins.variable}>
       <body className="font-sans">
         <MuiProvider>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </MuiProvider>
       </body>
     </html>

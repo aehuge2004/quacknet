@@ -78,7 +78,7 @@ export default function CreateAccountFields() {
         return;
       }
 
-      router.push("/dashboard");
+      router.push("/profile");
     } catch (err) {
       setErrorMessage("Something went wrong. Please try again.");
     }
@@ -160,10 +160,10 @@ export default function CreateAccountFields() {
 
       <Divider sx={{ width: '100%', my: 3, backgroundColor: '#838785', borderStyle: 'dashed' }} />
       <Typography variant="body2">or continue with:</Typography>
-      <Button variant="outlined" startIcon={<img src="/images/GoogleIcon.png" alt="icon" width={18} height={18} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }}>
+      <Button variant="outlined" startIcon={<img src="/images/GoogleIcon.png" alt="icon" width={18} height={18} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }} disabled>
         Sign in with Google
       </Button>
-      <Button variant="outlined" startIcon={<img src="/images/RIT.svg" alt="icon" width={40} height={24} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }}>
+      <Button variant="outlined" startIcon={<img src="/images/RIT.svg" alt="icon" width={40} height={24} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }} disabled>
         Sign in with RIT
       </Button>
     </Box>

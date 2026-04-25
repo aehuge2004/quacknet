@@ -13,6 +13,14 @@ import DangerZone from '../components/DangerZone'
 
 export default function Home() {
   const router = useRouter()
+    const { user } = useUser();
+    // Guard: redirect to sign-in if there's no user (e.g. direct URL access)
+    useEffect(() => {
+        if (!user) router.push('/sign-in');
+    }, [user]);
+    
+    if (!user) return null; // prevent flash of content before redirect
+
   return (
     <main style={{height: '100vh'}}>
         <Menu />

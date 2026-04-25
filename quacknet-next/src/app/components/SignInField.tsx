@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Users } from "@/types/users"
 
 const ThemedTextField = styled(TextField)({
   '& label.Mui-focused': { color: '#1F5960' },
@@ -19,12 +20,36 @@ const ThemedTextField = styled(TextField)({
   },
 });
 
-export default function SignInField() {
+export default function SignInField({ authenticated }: {user: Users[]}) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { setUser } = useUser();
+    
+  
+  const handleSignIn = async () => {
+    try {
+      const response = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
+      if (!response.ok) {
+        const error = await response.json();
+        setErrorMessage(error.message ?? "Invalid credentials");
+        return;
+      }
+
+      const data = await response.json();
+      setUser(data.user);      // ← store user in context before navigating
+      router.push("/profile");
+    } catch (err) {
+      setErrorMessage("Something went wrong. Please try again.");
+    }
+  };
+  
   const handleSignIn = async () => {
     try {
       const response = await fetch("/api/auth/signin", {
@@ -93,10 +118,10 @@ export default function SignInField() {
 
       <Divider sx={{ width: '100%', my: 3, backgroundColor: '#838785', borderStyle: 'dashed' }} />
       <Typography variant="body2">or continue with:</Typography>
-      <Button variant="outlined" startIcon={<img src="/images/GoogleIcon.png" alt="icon" width={18} height={18} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }}>
+      <Button variant="outlined" startIcon={<img src="/images/GoogleIcon.png" alt="icon" width={18} height={18} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }} disabled>
         Sign in with Google
       </Button>
-      <Button variant="outlined" startIcon={<img src="/images/RIT.svg" alt="icon" width={40} height={24} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }}>
+      <Button variant="outlined" startIcon={<img src="/images/RIT.svg" alt="icon" width={40} height={24} />} sx={{ mt: 2, width: '90%', color: 'black', borderColor: '#1F5960', textTransform: 'none' }} disabled>
         Sign in with RIT
       </Button>
     </Box>

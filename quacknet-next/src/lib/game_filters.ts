@@ -46,7 +46,7 @@ export async function getGames(filter: Filter, offset: number = 0, limit: number
     if (filter.multiplayer){
         const s3 = sql`select Game.game_id, Game.title, Game.author, Game.summary, Game.release_date,
        Game.cover_image, Game.multiplayer_id from Game inner join Multiplayer on (Game.multiplayer_id = Multiplayer.multiplayer_id)
-    where Multiplayer.local_min > 1`
+    where Multiplayer.local_max > 1`
         statements.push(s3)
         statements.push(intersect)
     }

@@ -15,6 +15,7 @@ import { Filter } from '@/types/game_filter_interface';
 
 function GamesPage() {
   const [filter, setFilter] = useState<Filter>({});
+  const [games, setGames] = useState<Game[]>([]);
 
   const handleFilterChange = (newFilter: Filter) => {
     setFilter(newFilter);

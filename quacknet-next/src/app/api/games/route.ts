@@ -2,10 +2,12 @@ import sql from '@/lib/db'
 import { getFeatured, getGames, getGenres } from '@/lib/game_filters'
 import { Filter } from '@/types/game_filter_interface';
 import { NextRequest, NextResponse } from 'next/server'
+import { make_data } from "@/lib/game_data"
 
 
 export async function GET() {
   try {
+    //make_data()
     const featured_games = await getFeatured()
     console.log('Featured games from DB:', featured_games);
     return NextResponse.json(featured_games);

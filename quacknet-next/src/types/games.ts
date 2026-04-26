@@ -8,7 +8,7 @@ export type Game = {
   author: string;
   summary: string;
   release_date: string;
-  cover_image: string;  // now a path like "/images/space-blaster.jpg"
+  cover_image: Buffer;
   multiplayer_id: number;
   multiplayer?: Multiplayer;
   genres?: Genre[];

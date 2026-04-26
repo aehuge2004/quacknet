@@ -11,15 +11,28 @@ import UserProfileInformation from '../components/UserProfileInformation'
 import IdLinkProfile from '../components/IdLinkProfile'
 import DangerZone from '../components/DangerZone'
 import { useUser } from '../context/UserContext';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const router = useRouter()
     const { user } = useUser();
+    const [loading, setLoading] = useState(true);
     // Guard: redirect to sign-in if there's no user (e.g. direct URL access)
     useEffect(() => {
         if (!user) router.push('/sign-in');
+        else setLoading(false);
     }, [user]);
+
+    if (loading) {
+        return (
+          <main>
+            <Menu />
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <img src="/favicon.ico" alt="Loading..." style={{ width: '50px', height: '50px', animation: 'spin 2s linear infinite' }} />
+            </Box>
+          </main>
+        );
+      }
 
     if (!user) return null; // prevent flash of content before redirect
 

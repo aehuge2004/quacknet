@@ -30,7 +30,7 @@ function GamesPage() {
           setLoading(false);
         }
     };
-
+    
     fetchGames();
   }, []);
 
